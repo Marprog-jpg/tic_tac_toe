@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tic_tac_toe">
         <activity
+            android:name=".humanVsComputer"
+            android:exported="false" />
+        <activity
+            android:name=".humanVsHuman"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

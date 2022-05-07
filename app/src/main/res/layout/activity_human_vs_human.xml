@@ -23,7 +23,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:gravity="fill"
-                android:text=""
+                android:text="CADSADAS"
                 tools:layout_editor_absoluteX="176dp"
                 tools:layout_editor_absoluteY="92dp" />
 

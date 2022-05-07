@@ -20,6 +20,7 @@
                 android:id="@+id/button1"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:gravity="fill"
                 android:text=""
@@ -30,6 +31,7 @@
                 android:id="@+id/button2"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:gravity="fill"
                 android:text=""
@@ -40,6 +42,7 @@
                 android:id="@+id/button3"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:gravity="fill"
                 android:text=""
@@ -56,6 +59,7 @@
                 android:id="@+id/button4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:text=""
                 tools:layout_editor_absoluteX="176dp"
@@ -65,6 +69,7 @@
                 android:id="@+id/button5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:text=""
                 tools:layout_editor_absoluteX="271dp"
@@ -74,6 +79,7 @@
                 android:id="@+id/button6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:text=""
                 tools:layout_editor_absoluteX="172dp"
@@ -89,6 +95,7 @@
                 android:id="@+id/button7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:text=""
                 tools:layout_editor_absoluteX="176dp"
@@ -98,6 +105,7 @@
                 android:id="@+id/button8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:text=""
                 tools:layout_editor_absoluteX="271dp"
@@ -107,11 +115,29 @@
                 android:id="@+id/button9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:backgroundTint="@color/material_on_background_disabled"
                 android:text=""
                 tools:layout_editor_absoluteX="172dp"
                 tools:layout_editor_absoluteY="157dp" />
         </TableRow>
     </TableLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="1dp"
+        android:layout_height="729dp"
+        android:background="?android:attr/listDivider"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="1dp"
+        android:layout_height="729dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#8A0909"
+        tools:layout_editor_absoluteX="255dp"
+        tools:layout_editor_absoluteY="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

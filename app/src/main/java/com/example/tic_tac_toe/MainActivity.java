@@ -13,21 +13,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("ciao");
-        System.out.println("ciao sono alle");
 
-        button = (Button) findViewById(R.id.button1);
+
+
+        button = (Button) findViewById(R.id.human_vs_human_btn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 openActivity2();
+            }
+        });
+
+        button = (Button) findViewById(R.id.human_vs_computer_btn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity3();
             }
         });
     }
 
     public void openActivity2(){
         Intent intent = new Intent(this, humanVsHuman.class);
+        startActivity(intent);
+    }
+
+    public void openActivity3(){
+        Intent intent = new Intent(this, humanVsComputer.class);
         startActivity(intent);
     }
 }

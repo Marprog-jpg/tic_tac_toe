@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.067" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/human_vs_human_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/human_vs_computer_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"

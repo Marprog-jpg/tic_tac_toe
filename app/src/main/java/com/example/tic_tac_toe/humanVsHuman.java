@@ -3,22 +3,32 @@ package com.example.tic_tac_toe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class humanVsHuman extends AppCompatActivity implements View.OnClickListener{
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
-    private Button button5;
-    private Button button6;
-    private Button button7;
-    private Button button8;
-    private Button button9;
+
+    private List<Button> game_btns;
+
+    private static final int[] button_ids = {
+            R.id.game_btn_0,
+            R.id.game_btn_1,
+            R.id.game_btn_2,
+            R.id.game_btn_3,
+            R.id.game_btn_4,
+            R.id.game_btn_5,
+            R.id.game_btn_6,
+            R.id.game_btn_7,
+            R.id.game_btn_8,
+    };
+
+
 
     private TextView textViewScorePlayer1;
     private TextView textViewScorePlayer2;
@@ -33,11 +43,13 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
 
     char board[] = new char[]{' ', ' ', ' ',
-                              ' ', ' ', ' ',
-                              ' ', ' ', ' '};
+            ' ', ' ', ' ',
+            ' ', ' ', ' '};
     int[] magicSquare = new int[]{4, 9, 2, 3, 5, 7, 8, 1, 6};
 
     private int turn = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,32 +57,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_human_vs_human);
 
-        button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(this);
-
-        button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(this);
-
-        button3 = (Button) findViewById(R.id.button3);
-        button3.setOnClickListener(this);
-
-        button4 = (Button) findViewById(R.id.button4);
-        button4.setOnClickListener(this);
-
-        button5 = (Button) findViewById(R.id.button5);
-        button5.setOnClickListener(this);
-
-        button6 = (Button) findViewById(R.id.button6);
-        button6.setOnClickListener(this);
-
-        button7 = (Button) findViewById(R.id.button7);
-        button7.setOnClickListener(this);
-
-        button8 = (Button) findViewById(R.id.button8);
-        button8.setOnClickListener(this);
-
-        button9 = (Button) findViewById(R.id.button9);
-        button9.setOnClickListener(this);
+        initializeGameButtons();
 
         textViewScorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
         textViewScorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
@@ -98,56 +85,58 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         }else{
             characterToPutIntoButton = 'o';
             textViewTurnPlayer.setText(namePlayer1);
+
+
         }
 
-        if(view.getId() == R.id.button1) {
+        if(view.getId() == button_ids[0]) {
             if(board[0] == ' ') {
-                button1.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(0).setText(String.valueOf(characterToPutIntoButton));
                 board[0] = characterToPutIntoButton;
             }
-        }else if(view.getId() == R.id.button2){
+        }else if(view.getId() == button_ids[1]) {
             if(board[1] == ' '){
-                button2.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(1).setText(String.valueOf(characterToPutIntoButton));
                 board[1] = characterToPutIntoButton;
             }
 
-        }else if(view.getId() == R.id.button3){
+        }else if(view.getId() == button_ids[2]) {
             if(board[2] == ' '){
-                button3.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(2).setText(String.valueOf(characterToPutIntoButton));
                 board[2] = characterToPutIntoButton;
             }
-        }else if(view.getId() == R.id.button4){
+        }else if(view.getId() == button_ids[3]) {
             if(board[3] == ' '){
-                button4.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(3).setText(String.valueOf(characterToPutIntoButton));
                 board[3] = characterToPutIntoButton;
             }
-        }else if(view.getId() == R.id.button5){
+        }else if(view.getId() == button_ids[4]) {
             if(board[4] == ' '){
-                button5.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(4).setText(String.valueOf(characterToPutIntoButton));
                 board[4] = characterToPutIntoButton;
             }
-        }else if(view.getId() == R.id.button6){
+        }else if(view.getId() == button_ids[5]) {
             if(board[5] == ' '){
-                button6.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(5).setText(String.valueOf(characterToPutIntoButton));
                 board[5] = characterToPutIntoButton;
             }
-        }else if(view.getId() == R.id.button7){
+        }else if(view.getId() == button_ids[6]) {
             if(board[6] == ' '){
-                button7.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(6).setText(String.valueOf(characterToPutIntoButton));
                 board[6] = characterToPutIntoButton;
             }
-        }else if(view.getId() == R.id.button8){
+        }else if(view.getId() == button_ids[7]) {
             if(board[7] == ' '){
-                button8.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(7).setText(String.valueOf(characterToPutIntoButton));
                 board[7] = characterToPutIntoButton;
             }
-        }else if(view.getId() == R.id.button9){
+        }else if(view.getId() == button_ids[8]) {
             if(board[8] == ' '){
-                button9.setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(8).setText(String.valueOf(characterToPutIntoButton));
                 board[8] = characterToPutIntoButton;
             }
         }
-        String boardInString = new String(board);
+
         System.out.println(board);
 
         checkWinner();
@@ -156,6 +145,20 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    protected void initializeGameButtons(){
+        int counter = 0;
+        game_btns = new ArrayList<Button>();
+        for(int id : button_ids){
+            //System.out.println(id);
+
+            Button game_btn = (Button)findViewById(id);
+            game_btn.setOnClickListener(this);
+            game_btns.add(game_btn);
+
+        }
+
+
+    }
 
     void checkWinner() {
         boolean boardIsFull = true;
@@ -182,6 +185,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             if (board[i] == ' ') {
                 boardIsFull = false;
             }
+
         }
         if(boardIsFull == true){
             System.out.println("Draw!");
@@ -205,23 +209,43 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     void generateNewGameBoardAfterEnd(){
         board = new char[]{' ', ' ', ' ',
-                           ' ', ' ', ' ',
-                           ' ', ' ', ' '};
+                ' ', ' ', ' ',
+                ' ', ' ', ' '};
 
         turn = 0;
         textViewTurnNumber.setText(String.valueOf(turn));
         textViewTurnPlayer.setText(namePlayer1);
 
-        button1.setText("");
-        button2.setText("");
-        button3.setText("");
-        button4.setText("");
-        button5.setText("");
-        button6.setText("");
-        button7.setText("");
-        button8.setText("");
-        button9.setText("");
+        game_btns.get(0).setText("");
+        game_btns.get(1).setText("");
+        game_btns.get(2).setText("");
+        game_btns.get(3).setText("");
+        game_btns.get(4).setText("");
+        game_btns.get(5).setText("");
+        game_btns.get(6).setText("");
+        game_btns.get(7).setText("");
+        game_btns.get(8).setText("");
 
+
+    }
+    void findBestMove(){
+        int bestScore = -999;
+        int bestMove;
+        int score;
+        for(int i = 0; i < 9; i++){
+            if(board[i] == ' '){
+                board[i] = 'o';
+                score = minimax(board);
+                if(score > bestScore){
+                    score = bestScore;
+                    bestMove = i;
+                }
+                board[i] = ' ';
+            }
+        }
+    }
+    int minimax(char[] board){
+        return 1;
     }
 }
 

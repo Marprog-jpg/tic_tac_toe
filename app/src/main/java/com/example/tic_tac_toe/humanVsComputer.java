@@ -3,6 +3,7 @@ package com.example.tic_tac_toe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class humanVsComputer extends AppCompatActivity implements View.OnClickListener{
+public class humanVsComputer extends AppCompatActivity implements View.OnClickListener {
 
     private List<Button> game_btns;
 
@@ -29,11 +30,12 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     };
 
 
-
     private TextView textViewScorePlayer1;
     private TextView textViewScorePlayer2;
     private TextView textViewTurnNumber;
     private TextView textViewTurnPlayer;
+
+    private TextView bestMoveForComputer;
 
     String namePlayer1;
     String namePlayer2;
@@ -45,17 +47,18 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     char board[] = new char[]{' ', ' ', ' ',
             ' ', ' ', ' ',
             ' ', ' ', ' '};
+
+    char[] fakeBoard;
     int[] magicSquare = new int[]{4, 9, 2, 3, 5, 7, 8, 1, 6};
 
     private int turn = 0;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int[][] gameMatrix = new int[3][3];
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_human_vs_human);
+        setContentView(R.layout.activity_human_vs_computer);
 
         initializeGameButtons();
 
@@ -64,6 +67,8 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
         textViewTurnNumber = (TextView) findViewById(R.id.turnNumber);
         textViewTurnPlayer = (TextView) findViewById(R.id.turnPlayer);
+
+        bestMoveForComputer = (TextView) findViewById(R.id.bestMoveForComputer);
 
         namePlayer1 = "Anna";
         namePlayer2 = "Bob";
@@ -80,42 +85,78 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         char characterToPutIntoButton;
         int positionOnBoardToChange;
-        if(turn % 2 == 0){
-            characterToPutIntoButton = 'x';
-            textViewTurnPlayer.setText(namePlayer2);
-        }else{
-            characterToPutIntoButton = 'o';
-            textViewTurnPlayer.setText(namePlayer1);
+        int bestMove;
 
-
-        }
-
-        for(int i = 0; i < boardSize; i++){
-            if(view.getId() == button_ids[i]){
-                if(board[i] == ' '){
+        characterToPutIntoButton = 'x';
+        textViewTurnPlayer.setText(namePlayer2);
+        for (int i = 0; i < boardSize; i++) {
+            if (view.getId() == button_ids[i]) {
+                if (board[i] == ' ') {
                     game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
                     board[i] = characterToPutIntoButton;
                 }
             }
         }
 
+        characterToPutIntoButton = 'o';
+        textViewTurnPlayer.setText(namePlayer1);
+        //(new Handler()).postDelayed(this::findBestMove, 1000);
+        turn++;
+
+        fakeBoard = board.clone();
+
+        System.out.println();
+        System.out.println();
+        System.out.println("REAL TURN " + turn + "AFTER ANNA'S MOVE");
+        printCurrentBoard(board);
+        System.out.println();
+
+        bestMove = minimax(fakeBoard, turn, 'o');
+        bestMoveForComputer.setText(String.valueOf(bestMove));
+
+        game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));
+        board[bestMove] = characterToPutIntoButton;
+
+
+
+        /*for(int i = 0; i < boardSize; i++){
+            if(view.getId() == button_ids[i]){
+                if(board[i] == ' '){
+                    game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                    board[i] = characterToPutIntoButton;
+                }
+            }
+        }*/
+
 
 
         System.out.println(board);
 
-        checkWinner();
-        turn++;
+    checkWinner();
+
+
         textViewTurnNumber.setText(String.valueOf(turn));
 
+}
+
+    protected void printCurrentBoard(char[] board){
+        for(int i = 0; i < 9; i=i+3){
+            System.out.print(board[i] + " ");
+            System.out.print(board[i+1] + " ");
+            System.out.print(board[i+2] + " ");
+
+            System.out.println();
+
+        }
     }
 
-    protected void initializeGameButtons(){
+    protected void initializeGameButtons() {
         int counter = 0;
         game_btns = new ArrayList<Button>();
-        for(int id : button_ids){
+        for (int id : button_ids) {
             //System.out.println(id);
 
-            Button game_btn = (Button)findViewById(id);
+            Button game_btn = (Button) findViewById(id);
             game_btn.setOnClickListener(this);
             game_btns.add(game_btn);
 
@@ -126,34 +167,32 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
     void checkWinner() {
         boolean boardIsFull = true;
-        if (hasWon('x')){
+        if (hasWon('x')) {
             System.out.println("x win!");
             scorePlayer1++;
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
-            Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer1,Toast.LENGTH_LONG).show();
+            Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer1, Toast.LENGTH_LONG).show();
             generateNewGameBoardAfterEnd();
             return;
-        }
-        else if (hasWon('o')){
+        } else if (hasWon('o')) {
             System.out.println("o win!");
             scorePlayer2++;
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
-            Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer2,Toast.LENGTH_LONG).show();
+            Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer2, Toast.LENGTH_LONG).show();
             generateNewGameBoardAfterEnd();
             return;
-        }
-        else{
+        } else {
             System.out.println("No winner yet...");
         }
-        for(int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             if (board[i] == ' ') {
                 boardIsFull = false;
             }
 
         }
-        if(boardIsFull == true){
+        if (boardIsFull == true) {
             System.out.println("Draw!");
-            Toast.makeText(humanVsComputer.this, "Pareggio",Toast.LENGTH_LONG).show();
+            Toast.makeText(humanVsComputer.this, "Pareggio", Toast.LENGTH_LONG).show();
 
             generateNewGameBoardAfterEnd();
             return;
@@ -171,7 +210,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         return false;
     }
 
-    void generateNewGameBoardAfterEnd(){
+    void generateNewGameBoardAfterEnd() {
         board = new char[]{' ', ' ', ' ',
                 ' ', ' ', ' ',
                 ' ', ' ', ' '};
@@ -192,25 +231,76 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
 
     }
-    void findBestMove(){
-        int bestScore = -999;
-        int bestMove;
+
+    int findBestMove() {
+        int bestScore = 999;
+        int bestMove = -1;
         int score;
-        for(int i = 0; i < 9; i++){
-            if(board[i] == ' '){
+
+
+
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == ' ') {
                 board[i] = 'o';
-                score = minimax(board);
-                if(score > bestScore){
-                    score = bestScore;
+                score = minimax(board, 0, 'o');
+                if (score > bestScore) {
+                    bestScore = score;
                     bestMove = i;
                 }
                 board[i] = ' ';
             }
         }
+        return bestMove;
     }
-    int minimax(char[] board){
-        return 1;
+
+    boolean checkIfBoardIsFull(char[] board){
+        for(int i = 0; i < 9; i++){
+            if(board[i] == ' '){
+                return false;
+            }
+        }
+        return true;
     }
+
+    int minimax(char[] board, int turn, char player) {
+        int bestMove = 0;
+        char[] bestBoardConfig;
+
+        if(hasWon('x')){
+            return 1;
+        }else if(hasWon('o')){
+            return -1;
+        }else if(checkIfBoardIsFull(board)){
+            return 0;
+        }
+
+        for(int i = 0; i < 9; i++){
+            if(board[i] == ' '){
+                board[i] = player;
+
+                System.out.println("SIMULATED TURN " + turn);
+                printCurrentBoard(board);
+
+                System.out.println();
+                bestMove = i;
+                turn++;
+
+                if(player == 'x'){
+                    player = 'o';
+                }else{
+                    player = 'x';
+                }
+                if(minimax(board, turn, player) != -1){
+                    continue;
+                }else{
+                    return bestMove;
+                }
+
+            }
+        }
+        return bestMove;
+    }
+
 }
 
 // Queste righe di codice sono state prese da: https://fowlie.github.io/2018/08/24/winning-algorithm-for-tic-tac-toe-using-a-3x3-magic-square/

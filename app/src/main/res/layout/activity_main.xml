@@ -10,6 +10,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#9dc879"
+        android:fontFamily="sans-serif"
         android:text="Tris Trac Troe"
         android:textColor="#a1c77d"
         android:textSize="40dp"
@@ -26,9 +28,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginBottom="196dp"
+        android:backgroundTint="#FF9800"
+        android:fontFamily="sans-serif"
         android:text="1v1"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#000000"
+        app:strokeWidth="2dp" />
 
     <Button
         android:id="@+id/human_vs_computer_btn"
@@ -36,8 +43,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="196dp"
+        android:backgroundTint="#FF9800"
+        android:fontFamily="sans-serif"
         android:text="1vbot"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:strokeColor="#000000"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

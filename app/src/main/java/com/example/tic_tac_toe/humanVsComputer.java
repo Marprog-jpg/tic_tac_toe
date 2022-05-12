@@ -261,7 +261,6 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         }
         return true;
     }
-
     int minimax(char[] board, int turn, char player) {
         int bestMove = 0;
         char[] bestBoardConfig;

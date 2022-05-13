@@ -43,12 +43,16 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     int scorePlayer1 = 0;
     int scorePlayer2 = 0;
 
+
+    int score;
     int boardSize = 9;
+    int simulatedMovesToWin = 1;
+
     char board[] = new char[]{' ', ' ', ' ',
             ' ', ' ', ' ',
             ' ', ' ', ' '};
 
-    char[] fakeBoard;
+    char fakeBoard[];
     int[] magicSquare = new int[]{4, 9, 2, 3, 5, 7, 8, 1, 6};
 
     private int turn = 0;
@@ -167,14 +171,14 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
     void checkWinner() {
         boolean boardIsFull = true;
-        if (hasWon('x')) {
+        if (hasWon('x', board)) {
             System.out.println("x win!");
             scorePlayer1++;
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
             Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer1, Toast.LENGTH_LONG).show();
             generateNewGameBoardAfterEnd();
             return;
-        } else if (hasWon('o')) {
+        } else if (hasWon('o', board)) {
             System.out.println("o win!");
             scorePlayer2++;
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
@@ -199,7 +203,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    boolean hasWon(char player) {
+    boolean hasWon(char player, char board[]) {
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
                 for (int k = 0; k < 9; k++)
@@ -262,43 +266,73 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
+    int minScore = 999999;
+
+    int bestMove = 0;
+    int bestMoveToSend;
     int minimax(char[] board, int turn, char player) {
-        int bestMove = 0;
+
+
         char[] bestBoardConfig;
 
-        if(hasWon('x')){
-            return 1;
-        }else if(hasWon('o')){
-            return -1;
+
+        if(hasWon('x', board)){
+            return 1000;
+        }else if(hasWon('o', board)){
+            return -1000;
         }else if(checkIfBoardIsFull(board)){
             return 0;
         }
+
+
 
         for(int i = 0; i < 9; i++){
             if(board[i] == ' '){
                 board[i] = player;
 
-                System.out.println("SIMULATED TURN " + turn);
+                System.out.println("SIMULATED TURN OF " + player + ": " + turn);
                 printCurrentBoard(board);
 
                 System.out.println();
-                bestMove = i;
+
                 turn++;
+                simulatedMovesToWin++;
 
                 if(player == 'x'){
                     player = 'o';
                 }else{
                     player = 'x';
                 }
-                if(minimax(board, turn, player) != -1){
+                score = minimax(board, turn, player);
+
+
+
+                if(score < minScore){
+                    minScore += score + 1;
+                    bestMove = i;
+                }else{
+                    minScore++;
+                }
+
+                System.out.println("Score: " + score);
+                System.out.println("Max Score: " + maxScore);
+                System.out.println();
+                /*if(score != -1){
                     continue;
                 }else{
-                    return bestMove;
-                }
+                    return score + simulatedMovesToWin;
+                    //return score;
+                }*/
 
             }
         }
-        return bestMove;
+        System.out.println("Best Move: " + bestMove);
+
+        bestMoveToSend = bestMove;
+        maxScore = 0;
+        bestMove = 0;
+        return bestMoveToSend;
+        //return bestMove;
     }
 
 }

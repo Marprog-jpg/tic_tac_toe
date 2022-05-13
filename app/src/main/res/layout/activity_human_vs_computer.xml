@@ -7,7 +7,7 @@
     android:backgroundTint="#FFFFFF">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FF0000"
@@ -19,7 +19,8 @@
         app:layout_constraintStart_toEndOf="@+id/scorePlayer1"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
         app:strokeColor="@color/black"
-        app:strokeWidth="0.7dp" />
+        app:strokeWidth="0.7dp"
+        tools:ignore="TextContrastCheck" />
 
     <TableLayout
         android:id="@+id/tableLayout"

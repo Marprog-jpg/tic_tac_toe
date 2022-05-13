@@ -2,15 +2,24 @@ package com.example.tic_tac_toe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class humanVsComputer extends AppCompatActivity implements View.OnClickListener {
@@ -58,6 +67,11 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         int[][] gameMatrix = new int[3][3];
         super.onCreate(savedInstanceState);
+
+        //inizio parte aggiunta
+        Button buttone = findViewById(R.id.button_screen);
+        //errore nel lissener
+        //fine parte aggiunta
         setContentView(R.layout.activity_human_vs_computer);
 
         initializeGameButtons();
@@ -252,7 +266,37 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         }
         return bestMove;
     }
+    //inizio parte aggiunta
+    private void screenshot(){
+        Date date = new Date();
+        CharSequence now = android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss",date);
+        String filename = Environment.getExternalStorageDirectory() + "/screenshooter/" + now + ".jpg";
 
+        View root = getWindow().getDecorView();
+        root.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(root.getDrawingCache());
+        root.setDrawingCacheEnabled(false);
+
+        File file = new File(filename);
+        file.getParentFile().mkdirs();
+
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+
+            Uri uri = Uri.fromFile(file);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "image/");
+            startActivity(intent);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //fine parte aggiunta
     boolean checkIfBoardIsFull(char[] board){
         for(int i = 0; i < 9; i++){
             if(board[i] == ' '){

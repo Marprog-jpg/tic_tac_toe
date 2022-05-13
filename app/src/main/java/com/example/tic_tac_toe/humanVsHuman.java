@@ -66,12 +66,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 //inizio parte aggiunta
         Button buttone = findViewById(R.id.button_screen);
-        buttone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                screenshot();
-            }
-        });
+        //errore nel lissener
  //fine parte aggiunta
 
         setContentView(R.layout.activity_human_vs_human);
@@ -161,7 +156,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         checkWinner();
         turn++;
         textViewTurnNumber.setText(String.valueOf(turn));
-
     }
 
     protected void initializeGameButtons(){

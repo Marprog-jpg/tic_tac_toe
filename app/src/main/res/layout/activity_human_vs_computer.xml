@@ -3,7 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF">
+
+    <Button
+        android:id="@+id/button_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:text="stampa"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scorePlayer2"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toEndOf="@+id/scorePlayer1"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.7dp"
+        tools:ignore="TextContrastCheck" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -11,7 +28,7 @@
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
@@ -25,7 +42,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="176dp"
                 tools:layout_editor_absoluteY="92dp" />
 
@@ -34,8 +56,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="271dp"
                 tools:layout_editor_absoluteY="86dp" />
 
@@ -44,8 +71,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="172dp"
                 tools:layout_editor_absoluteY="157dp" />
         </TableRow>
@@ -60,8 +92,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="176dp"
                 tools:layout_editor_absoluteY="92dp" />
 
@@ -70,8 +107,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="271dp"
                 tools:layout_editor_absoluteY="86dp" />
 
@@ -80,8 +122,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="172dp"
                 tools:layout_editor_absoluteY="157dp" />
         </TableRow>
@@ -96,8 +143,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="176dp"
                 tools:layout_editor_absoluteY="92dp" />
 
@@ -106,8 +158,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="271dp"
                 tools:layout_editor_absoluteY="86dp" />
 
@@ -116,8 +173,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/material_on_background_disabled"
+                android:backgroundTint="@color/white"
                 android:text=""
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="172dp"
                 tools:layout_editor_absoluteY="157dp" />
         </TableRow>
@@ -140,10 +202,13 @@
         tools:layout_editor_absoluteX="255dp"
         tools:layout_editor_absoluteY="1dp" />
 
+
+
     <TextView
         android:id="@+id/turnNumber"
         android:layout_width="101dp"
         android:layout_height="35dp"
+        android:gravity="center"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -205,8 +270,13 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="28dp"
         android:text="Best Move For Bob"
-        tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="681dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

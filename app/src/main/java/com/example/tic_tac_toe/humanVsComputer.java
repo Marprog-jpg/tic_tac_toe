@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -111,7 +112,9 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         printCurrentBoard(board);
         System.out.println();
 
-        bestMove = minimax(fakeBoard, turn, 'o');
+        bestMove = findBestMove();
+
+                //minimax(fakeBoard, 1, 'o', 0);
         bestMoveForComputer.setText(String.valueOf(bestMove));
 
         game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));
@@ -167,19 +170,19 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
     void checkWinner() {
         boolean boardIsFull = true;
-        if (hasWon('x')) {
+        if (hasWon('x', board)) {
             System.out.println("x win!");
             scorePlayer1++;
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
             Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer1, Toast.LENGTH_LONG).show();
-            generateNewGameBoardAfterEnd();
+            //generateNewGameBoardAfterEnd();
             return;
-        } else if (hasWon('o')) {
+        } else if (hasWon('o', board)) {
             System.out.println("o win!");
             scorePlayer2++;
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
             Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer2, Toast.LENGTH_LONG).show();
-            generateNewGameBoardAfterEnd();
+            //generateNewGameBoardAfterEnd();
             return;
         } else {
             System.out.println("No winner yet...");
@@ -199,7 +202,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    boolean hasWon(char player) {
+    boolean hasWon(char player, char[] board) {
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
                 for (int k = 0; k < 9; k++)
@@ -233,23 +236,28 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     }
 
     int findBestMove() {
-        int bestScore = 999;
+        int bestScore = 99999;
+        int worstScore = 99999;
         int bestMove = -1;
-        int score;
-
-
+        int score = 0;
 
         for (int i = 0; i < 9; i++) {
             if (board[i] == ' ') {
+
                 board[i] = 'o';
-                score = minimax(board, 0, 'o');
-                if (score > bestScore) {
+                System.out.println("SIMULATED TURN 0");
+                printCurrentBoard(board);
+                bestMove = i;
+                score = minimax(board, 0, 'o', 0);
+                if (score < bestScore) {
                     bestScore = score;
                     bestMove = i;
+                    System.out.println("BestScore = " + bestScore + " bestMove = " + bestMove);
                 }
                 board[i] = ' ';
             }
         }
+        System.out.println("Best possible move:  "+ bestMove);
         return bestMove;
     }
 
@@ -262,20 +270,47 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    int minimax(char[] board, int turn, char player) {
+    int endState= 99;
+    int movesMadeToEnd = 0;
+    int bestScore = 9999;
+    ArrayList<Integer> arrListCaselleOccupate = new ArrayList<>();
+    int lastPositionBeforeDescending = 0;
+    int stuffPrinter = 0;
+
+    int minimax(char[] board, int turn, char player, int movesMadeToEnd) {
+        char[] boardBeforeDescending;
+
+        //arrListCaselleOccupate = new ArrayList<>();
+        int lastPositionBeforeDescending = 0;
         int bestMove = 0;
         char[] bestBoardConfig;
+        stuffPrinter++;
+        do{
 
-        if(hasWon('x')){
-            return 1;
-        }else if(hasWon('o')){
-            return -1;
+        }while(stuffPrinter>30);
+
+
+        if(hasWon('x', board)){
+            return 1000;
+        }else if(hasWon('o', board)){
+            return -1000;
         }else if(checkIfBoardIsFull(board)){
             return 0;
+        }else{
+            movesMadeToEnd++;
         }
 
         for(int i = 0; i < 9; i++){
             if(board[i] == ' '){
+
+                boardBeforeDescending = board.clone();
+
+                if(turn % 2 == 0){
+                    player = 'x';
+                }else{
+                    player = 'o';
+                }
+                //printCurrentBoard(board);
                 board[i] = player;
 
                 System.out.println("SIMULATED TURN " + turn);
@@ -285,20 +320,45 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                 bestMove = i;
                 turn++;
 
-                if(player == 'x'){
-                    player = 'o';
+
+                endState = minimax(board, turn, player, movesMadeToEnd);
+                System.out.println("endState " + endState);
+
+                if(endState == 0 || endState == -1000 || endState == 1000){
+                    if(endState == 0){
+                        System.out.println("Pareggio");
+                    }else if(endState == -1000){
+                        System.out.println("O Vinto");
+                    }else if(endState == 1000){
+                        System.out.println("X Vinto");
+                    }
+                    //return endState + movesMadeToEnd;
+                    if((endState + movesMadeToEnd) < bestScore){
+                        bestScore = endState + movesMadeToEnd;
+                    }
+                    endState = 0;
+                    board[i] = ' ';
+                    turn--;
+                    movesMadeToEnd--;
+
+                    //return bestScore;
                 }else{
-                    player = 'x';
-                }
-                if(minimax(board, turn, player) != -1){
-                    continue;
-                }else{
-                    return bestMove;
+
+                    board = boardBeforeDescending.clone();
+                    turn--;
+                    endState = 0;
+                    movesMadeToEnd--;
+                    System.out.println(boardBeforeDescending);
+                    printCurrentBoard(boardBeforeDescending);
+
+
+
                 }
 
             }
         }
-        return bestMove;
+
+        return bestScore;
     }
 
 }

@@ -236,6 +236,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     }
 
     int findBestMove() {
+        char[] fakeBoard = board.clone();
         int bestScore = 99999;
         int worstScore = 99999;
         int bestMove = -1;
@@ -247,8 +248,10 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                 board[i] = 'o';
                 System.out.println("SIMULATED TURN 0");
                 printCurrentBoard(board);
-                bestMove = i;
-                score = minimax(board, 0, 'o', 0);
+
+                fakeBoard = board.clone();
+                score = minimax(fakeBoard, 0, 'o', 1);
+                System.out.println("BEST SCORE AT THE MOMENT = " + score);
                 if (score < bestScore) {
                     bestScore = score;
                     bestMove = i;
@@ -271,39 +274,35 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     }
 
     int endState= 99;
-    int movesMadeToEnd = 0;
-    int bestScore = 9999;
+
+
     ArrayList<Integer> arrListCaselleOccupate = new ArrayList<>();
     int lastPositionBeforeDescending = 0;
-    int stuffPrinter = 0;
 
-    int minimax(char[] board, int turn, char player, int movesMadeToEnd) {
+    int minimax(char[] fakeBoard, int turn, char player, int movesMadeToEnd) {
         char[] boardBeforeDescending;
-
+        int movesMadeUntilNow = 0;
         //arrListCaselleOccupate = new ArrayList<>();
         int lastPositionBeforeDescending = 0;
         int bestMove = 0;
         char[] bestBoardConfig;
-        stuffPrinter++;
-        do{
-
-        }while(stuffPrinter>30);
+        int bestScoreForLevel = 0;
 
 
-        if(hasWon('x', board)){
+        movesMadeToEnd++;
+        if(hasWon('x', fakeBoard)){
             return 1000;
-        }else if(hasWon('o', board)){
+        }else if(hasWon('o', fakeBoard)){
             return -1000;
-        }else if(checkIfBoardIsFull(board)){
+        }else if(checkIfBoardIsFull(fakeBoard)){
             return 0;
-        }else{
-            movesMadeToEnd++;
         }
 
         for(int i = 0; i < 9; i++){
-            if(board[i] == ' '){
+            if(fakeBoard[i] == ' '){
 
-                boardBeforeDescending = board.clone();
+                boardBeforeDescending = fakeBoard.clone();
+
 
                 if(turn % 2 == 0){
                     player = 'x';
@@ -311,54 +310,60 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                     player = 'o';
                 }
                 //printCurrentBoard(board);
-                board[i] = player;
+                fakeBoard[i] = player;
 
-                System.out.println("SIMULATED TURN " + turn);
-                printCurrentBoard(board);
+                //printCurrentBoard(board);
 
-                System.out.println();
+
                 bestMove = i;
-                turn++;
 
 
-                endState = minimax(board, turn, player, movesMadeToEnd);
-                System.out.println("endState " + endState);
+
+                endState = minimax(fakeBoard, turn, player, movesMadeToEnd);
+
 
                 if(endState == 0 || endState == -1000 || endState == 1000){
-                    if(endState == 0){
-                        System.out.println("Pareggio");
-                    }else if(endState == -1000){
-                        System.out.println("O Vinto");
-                    }else if(endState == 1000){
-                        System.out.println("X Vinto");
-                    }
-                    //return endState + movesMadeToEnd;
-                    if((endState + movesMadeToEnd) < bestScore){
-                        bestScore = endState + movesMadeToEnd;
+
+                    //return endState + movesMadeToEnd
+                    if(turn % 2 == 0){
+                        if((endState - movesMadeToEnd) > bestScoreForLevel){
+                            bestScoreForLevel = endState - movesMadeToEnd;
+                        }
+                    }else{
+                        if((endState + movesMadeToEnd) < bestScoreForLevel){
+                            bestScoreForLevel = endState + movesMadeToEnd;
+                        }
                     }
                     endState = 0;
-                    board[i] = ' ';
-                    turn--;
-                    movesMadeToEnd--;
+                    fakeBoard[i] = ' ';
 
                     //return bestScore;
                 }else{
 
-                    board = boardBeforeDescending.clone();
-                    turn--;
+                    fakeBoard = boardBeforeDescending.clone();
+
+                    if(turn % 2 == 0){
+                        if((endState - movesMadeToEnd) > bestScoreForLevel){
+                            bestScoreForLevel = endState - movesMadeToEnd;
+                        }
+                    }else{
+                        if((endState + movesMadeToEnd) < bestScoreForLevel){
+                            bestScoreForLevel = endState + movesMadeToEnd;
+                        }
+                    }
                     endState = 0;
-                    movesMadeToEnd--;
-                    System.out.println(boardBeforeDescending);
-                    printCurrentBoard(boardBeforeDescending);
+
+                    //printCurrentBoard(boardBeforeDescending);
 
 
 
                 }
+                turn++;
 
             }
         }
-
-        return bestScore;
+        System.out.println("Best score for level: " + bestScoreForLevel);
+        return bestScoreForLevel;
     }
 
 }

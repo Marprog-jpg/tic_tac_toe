@@ -237,7 +237,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
     int findBestMove() {
         char[] fakeBoard = board.clone();
-        int bestScore = 99999;
+        int bestScore = 0;
         int worstScore = 99999;
         int bestMove = -1;
         int score = 0;
@@ -252,7 +252,12 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                 fakeBoard = board.clone();
                 score = minimax(fakeBoard, 0, 'o', 1);
                 System.out.println("BEST SCORE AT THE MOMENT = " + score);
-                if (score < bestScore) {
+                System.out.println("Absolute value of current score: " + Math.abs(score) + " Absolute Value of Best Score = " + Math.abs(bestScore));
+                if (Math.abs(score) > Math.abs(bestScore)){
+                    if(score > 900){
+
+                    }
+                        //(score < 900 || score == 0) && bestScore != 0) {
                     bestScore = score;
                     bestMove = i;
                     System.out.println("BestScore = " + bestScore + " bestMove = " + bestMove);
@@ -273,13 +278,16 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    int endState= 99;
+
 
 
     ArrayList<Integer> arrListCaselleOccupate = new ArrayList<>();
     int lastPositionBeforeDescending = 0;
 
+    int realMovesMadeToEnd = 0;
+
     int minimax(char[] fakeBoard, int turn, char player, int movesMadeToEnd) {
+        int endState = 89;
         char[] boardBeforeDescending;
         int movesMadeUntilNow = 0;
         //arrListCaselleOccupate = new ArrayList<>();
@@ -291,10 +299,13 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
         movesMadeToEnd++;
         if(hasWon('x', fakeBoard)){
+            realMovesMadeToEnd = movesMadeToEnd;
             return 1000;
         }else if(hasWon('o', fakeBoard)){
+            realMovesMadeToEnd = movesMadeToEnd;
             return -1000;
         }else if(checkIfBoardIsFull(fakeBoard)){
+            realMovesMadeToEnd = movesMadeToEnd;
             return 0;
         }
 
@@ -325,7 +336,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                 if(endState == 0 || endState == -1000 || endState == 1000){
 
                     //return endState + movesMadeToEnd
-                    if(turn % 2 == 0){
+                    if(turn % 2 != 0){
                         if((endState - movesMadeToEnd) > bestScoreForLevel){
                             bestScoreForLevel = endState - movesMadeToEnd;
                         }
@@ -334,7 +345,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                             bestScoreForLevel = endState + movesMadeToEnd;
                         }
                     }
-                    endState = 0;
+
                     fakeBoard[i] = ' ';
 
                     //return bestScore;
@@ -342,7 +353,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
                     fakeBoard = boardBeforeDescending.clone();
 
-                    if(turn % 2 == 0){
+                    if(turn % 2 != 0){
                         if((endState - movesMadeToEnd) > bestScoreForLevel){
                             bestScoreForLevel = endState - movesMadeToEnd;
                         }
@@ -351,7 +362,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                             bestScoreForLevel = endState + movesMadeToEnd;
                         }
                     }
-                    endState = 0;
+
 
                     //printCurrentBoard(boardBeforeDescending);
 
@@ -362,8 +373,14 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
             }
         }
-        System.out.println("Best score for level: " + bestScoreForLevel);
-        return bestScoreForLevel;
+        //System.out.println("Best score for level: " + bestScoreForLevel);
+        System.out.println(movesMadeToEnd);
+        if(movesMadeToEnd == 2){
+            return bestScoreForLevel;
+        }else{
+            return endState;
+        }
+
     }
 
 }

@@ -369,5 +369,5 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 }
 
 // Queste righe di codice sono state prese da: https://fowlie.github.io/2018/08/24/winning-algorithm-for-tic-tac-toe-using-a-3x3-magic-square/
-
+// https://github.com/DavidHurst/MiniMax-TicTacToe-Java/tree/master/TicTacToe/src
 //fine righe di codice prese

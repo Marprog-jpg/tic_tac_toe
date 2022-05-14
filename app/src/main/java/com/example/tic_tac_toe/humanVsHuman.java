@@ -241,7 +241,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             outputStream.flush();
             outputStream.close();
 
-            openScreenshot(imageFile);
+            //openScreenshot(imageFile);
         } catch (Throwable e) {
             // Several error may come out with file handling or DOM
             e.printStackTrace();

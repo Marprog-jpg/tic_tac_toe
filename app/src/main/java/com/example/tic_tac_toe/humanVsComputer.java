@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class humanVsComputer extends AppCompatActivity implements View.OnClickListener {
 
@@ -175,14 +176,14 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
             scorePlayer1++;
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
             Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer1, Toast.LENGTH_LONG).show();
-            //generateNewGameBoardAfterEnd();
+            generateNewGameBoardAfterEnd();
             return;
         } else if (hasWon('o', board)) {
             System.out.println("o win!");
             scorePlayer2++;
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
             Toast.makeText(humanVsComputer.this, "Vittoria Reale di " + namePlayer2, Toast.LENGTH_LONG).show();
-            //generateNewGameBoardAfterEnd();
+            generateNewGameBoardAfterEnd();
             return;
         } else {
             System.out.println("No winner yet...");
@@ -237,31 +238,23 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
     int findBestMove() {
         char[] fakeBoard = board.clone();
-        int bestScore = 99999;
+        int bestScore = 0;
         int worstScore = 99999;
         int bestMove = -1;
         int score = 0;
+        Random random = new Random();
 
-        for (int i = 0; i < 9; i++) {
-            if (board[i] == ' ') {
+        do{
+            //bestMove = (int) (Math.random()%7 + 1);
+            bestMove = random.nextInt((8 - 0) + 1) + 0;
 
-                board[i] = 'o';
-                System.out.println("SIMULATED TURN 0");
-                printCurrentBoard(board);
-
-                fakeBoard = board.clone();
-                score = minimax(fakeBoard, 0, 'o', 1);
-                System.out.println("BEST SCORE AT THE MOMENT = " + score);
-                if (score < bestScore) {
-                    bestScore = score;
-                    bestMove = i;
-                    System.out.println("BestScore = " + bestScore + " bestMove = " + bestMove);
-                }
-                board[i] = ' ';
+            System.out.println(bestMove);
+            if(board[bestMove] == ' '){
+                return bestMove;
             }
-        }
-        System.out.println("Best possible move:  "+ bestMove);
-        return bestMove;
+        }while(true);
+
+
     }
 
     boolean checkIfBoardIsFull(char[] board){
@@ -273,100 +266,18 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-    int endState= 99;
+
 
 
     ArrayList<Integer> arrListCaselleOccupate = new ArrayList<>();
     int lastPositionBeforeDescending = 0;
 
-    int minimax(char[] fakeBoard, int turn, char player, int movesMadeToEnd) {
-        char[] boardBeforeDescending;
-        int movesMadeUntilNow = 0;
-        //arrListCaselleOccupate = new ArrayList<>();
-        int lastPositionBeforeDescending = 0;
-        int bestMove = 0;
-        char[] bestBoardConfig;
-        int bestScoreForLevel = 0;
+    int realMovesMadeToEnd = 0;
 
-
-        movesMadeToEnd++;
-        if(hasWon('x', fakeBoard)){
-            return 1000;
-        }else if(hasWon('o', fakeBoard)){
-            return -1000;
-        }else if(checkIfBoardIsFull(fakeBoard)){
-            return 0;
-        }
-
-        for(int i = 0; i < 9; i++){
-            if(fakeBoard[i] == ' '){
-
-                boardBeforeDescending = fakeBoard.clone();
-
-
-                if(turn % 2 == 0){
-                    player = 'x';
-                }else{
-                    player = 'o';
-                }
-                //printCurrentBoard(board);
-                fakeBoard[i] = player;
-
-                //printCurrentBoard(board);
-
-
-                bestMove = i;
-
-
-
-                endState = minimax(fakeBoard, turn, player, movesMadeToEnd);
-
-
-                if(endState == 0 || endState == -1000 || endState == 1000){
-
-                    //return endState + movesMadeToEnd
-                    if(turn % 2 == 0){
-                        if((endState - movesMadeToEnd) > bestScoreForLevel){
-                            bestScoreForLevel = endState - movesMadeToEnd;
-                        }
-                    }else{
-                        if((endState + movesMadeToEnd) < bestScoreForLevel){
-                            bestScoreForLevel = endState + movesMadeToEnd;
-                        }
-                    }
-                    endState = 0;
-                    fakeBoard[i] = ' ';
-
-                    //return bestScore;
-                }else{
-
-                    fakeBoard = boardBeforeDescending.clone();
-
-                    if(turn % 2 == 0){
-                        if((endState - movesMadeToEnd) > bestScoreForLevel){
-                            bestScoreForLevel = endState - movesMadeToEnd;
-                        }
-                    }else{
-                        if((endState + movesMadeToEnd) < bestScoreForLevel){
-                            bestScoreForLevel = endState + movesMadeToEnd;
-                        }
-                    }
-                    endState = 0;
-
-                    //printCurrentBoard(boardBeforeDescending);
-
-
-
-                }
-                turn++;
-
-            }
-        }
-        System.out.println("Best score for level: " + bestScoreForLevel);
-        return bestScoreForLevel;
-    }
 
 }
+
+
 
 // Queste righe di codice sono state prese da: https://fowlie.github.io/2018/08/24/winning-algorithm-for-tic-tac-toe-using-a-3x3-magic-square/
 // https://github.com/DavidHurst/MiniMax-TicTacToe-Java/tree/master/TicTacToe/src

@@ -89,37 +89,59 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         int positionOnBoardToChange;
         int bestMove;
 
-        characterToPutIntoButton = 'x';
-        textViewTurnPlayer.setText(namePlayer2);
-        for (int i = 0; i < boardSize; i++) {
-            if (view.getId() == button_ids[i]) {
-                if (board[i] == ' ') {
-                    game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
-                    board[i] = characterToPutIntoButton;
+        if(turn % 2 == 0){
+            for (int i = 0; i < boardSize; i++) {
+                if (view.getId() == button_ids[i]) {
+                    if (board[i] == ' ') {
+                        characterToPutIntoButton = 'x';
+                        textViewTurnPlayer.setText(namePlayer2);
+                        game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                        board[i] = characterToPutIntoButton;
+                        turn++;
+                    }
                 }
             }
         }
 
-        characterToPutIntoButton = 'o';
-        textViewTurnPlayer.setText(namePlayer1);
-        //(new Handler()).postDelayed(this::findBestMove, 1000);
-        turn++;
 
-        fakeBoard = board.clone();
 
-        System.out.println();
-        System.out.println();
-        System.out.println("REAL TURN " + turn + "AFTER ANNA'S MOVE");
-        printCurrentBoard(board);
-        System.out.println();
 
-        bestMove = findBestMove();
+        if(turn % 2 != 0){
+            characterToPutIntoButton = 'o';
+            textViewTurnPlayer.setText(namePlayer1);
+            //(new Handler()).postDelayed(this::findBestMove, 1000);
+            turn++;
 
-                //minimax(fakeBoard, 1, 'o', 0);
-        bestMoveForComputer.setText(String.valueOf(bestMove));
+            fakeBoard = board.clone();
 
-        game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));
-        board[bestMove] = characterToPutIntoButton;
+            System.out.println();
+            System.out.println();
+            System.out.println("REAL TURN " + turn + "AFTER ANNA'S MOVE");
+            printCurrentBoard(board);
+            System.out.println();
+
+            bestMove = findBestMove();
+
+            //minimax(fakeBoard, 1, 'o', 0);
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("done");
+
+
+                }
+            }, 1000);
+            bestMoveForComputer.setText(String.valueOf(bestMove));
+
+            game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));
+            board[bestMove] = characterToPutIntoButton;
+
+
+        }
+
+        checkWinner();
 
 
 
@@ -136,7 +158,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
         System.out.println(board);
 
-    checkWinner();
+
 
 
         textViewTurnNumber.setText(String.valueOf(turn));

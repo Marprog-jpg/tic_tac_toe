@@ -1,10 +1,14 @@
 package com.example.tic_tac_toe;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -50,6 +54,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
     int scorePlayer1 = 0;
     int scorePlayer2 = 0;
 
+    int boardSize = 9;
 
     char board[] = new char[]{' ', ' ', ' ',
             ' ', ' ', ' ',
@@ -58,6 +63,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     private int turn = 0;
 
+    private Button screenShot_btn;
+
 
 
     @Override
@@ -65,7 +72,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         int[][] gameMatrix = new int[3][3];
         super.onCreate(savedInstanceState);
 //inizio parte aggiunta
-        Button buttone = findViewById(R.id.button_screen);
+
         //errore nel lissener
  //fine parte aggiunta
 
@@ -78,6 +85,9 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
         textViewTurnNumber = (TextView) findViewById(R.id.turnNumber);
         textViewTurnPlayer = (TextView) findViewById(R.id.turnPlayer);
+
+        screenShot_btn = (Button)findViewById(R.id.button_screen);
+        screenShot_btn.setOnClickListener(this);
 
         namePlayer1 = "Anna";
         namePlayer2 = "Bob";
@@ -92,70 +102,39 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        char characterToPutIntoButton;
-        if(turn % 2 == 0){
-            characterToPutIntoButton = 'x';
-            textViewTurnPlayer.setText(namePlayer2);
+
+        if(view.getId() != R.id.button_screen) {
+            System.out.println("WTFFFFFF");
+
+            char characterToPutIntoButton;
+            if (turn % 2 == 0) {
+                characterToPutIntoButton = 'x';
+                textViewTurnPlayer.setText(namePlayer2);
+            } else {
+                characterToPutIntoButton = 'o';
+                textViewTurnPlayer.setText(namePlayer1);
+
+
+            }
+
+            for (int i = 0; i < boardSize; i++) {
+                if (view.getId() == button_ids[i]) {
+                    if (board[i] == ' ') {
+                        game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                        board[i] = characterToPutIntoButton;
+                    }
+                }
+            }
+
+            System.out.println(board);
+
+            checkWinner();
+            turn++;
+            textViewTurnNumber.setText(String.valueOf(turn));
         }else{
-            characterToPutIntoButton = 'o';
-            textViewTurnPlayer.setText(namePlayer1);
-
-
+            System.out.println("DENTRO");
+            takeScreenshot();
         }
-
-        if(view.getId() == button_ids[0]) {
-            if(board[0] == ' ') {
-                game_btns.get(0).setText(String.valueOf(characterToPutIntoButton));
-                board[0] = characterToPutIntoButton;
-            }
-        }else if(view.getId() == button_ids[1]) {
-            if(board[1] == ' '){
-                game_btns.get(1).setText(String.valueOf(characterToPutIntoButton));
-                board[1] = characterToPutIntoButton;
-            }
-
-        }else if(view.getId() == button_ids[2]) {
-            if(board[2] == ' '){
-                game_btns.get(2).setText(String.valueOf(characterToPutIntoButton));
-                board[2] = characterToPutIntoButton;
-            }
-        }else if(view.getId() == button_ids[3]) {
-            if(board[3] == ' '){
-                game_btns.get(3).setText(String.valueOf(characterToPutIntoButton));
-                board[3] = characterToPutIntoButton;
-            }
-        }else if(view.getId() == button_ids[4]) {
-            if(board[4] == ' '){
-                game_btns.get(4).setText(String.valueOf(characterToPutIntoButton));
-                board[4] = characterToPutIntoButton;
-            }
-        }else if(view.getId() == button_ids[5]) {
-            if(board[5] == ' '){
-                game_btns.get(5).setText(String.valueOf(characterToPutIntoButton));
-                board[5] = characterToPutIntoButton;
-            }
-        }else if(view.getId() == button_ids[6]) {
-            if(board[6] == ' '){
-                game_btns.get(6).setText(String.valueOf(characterToPutIntoButton));
-                board[6] = characterToPutIntoButton;
-            }
-        }else if(view.getId() == button_ids[7]) {
-            if(board[7] == ' '){
-                game_btns.get(7).setText(String.valueOf(characterToPutIntoButton));
-                board[7] = characterToPutIntoButton;
-            }
-        }else if(view.getId() == button_ids[8]) {
-            if(board[8] == ' '){
-                game_btns.get(8).setText(String.valueOf(characterToPutIntoButton));
-                board[8] = characterToPutIntoButton;
-            }
-        }
-
-        System.out.println(board);
-
-        checkWinner();
-        turn++;
-        textViewTurnNumber.setText(String.valueOf(turn));
     }
 
     protected void initializeGameButtons(){
@@ -229,47 +208,52 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         textViewTurnNumber.setText(String.valueOf(turn));
         textViewTurnPlayer.setText(namePlayer1);
 
-        game_btns.get(0).setText("");
-        game_btns.get(1).setText("");
-        game_btns.get(2).setText("");
-        game_btns.get(3).setText("");
-        game_btns.get(4).setText("");
-        game_btns.get(5).setText("");
-        game_btns.get(6).setText("");
-        game_btns.get(7).setText("");
-        game_btns.get(8).setText("");
+        for(int i = 0; i < 8; i++){
+            game_btns.get(i).setText("");
+        }
+
 
 
     }
     //inizio parte aggiunta
-    private void screenshot(){
-        Date date = new Date();
-        CharSequence now = android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss",date);
-        String filename = Environment.getExternalStorageDirectory() + "/screenshooter/" + now + ".jpg";
+    private void takeScreenshot() {
 
-        View root = getWindow().getDecorView();
-        root.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(root.getDrawingCache());
-        root.setDrawingCacheEnabled(false);
-
-        File file = new File(filename);
-        file.getParentFile().mkdirs();
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
 
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
-            fileOutputStream.flush();
-            fileOutputStream.close();
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+            System.out.println(mPath);
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            //View v1 = getWindow().getDecorView().findViewById(android.R.id.content);
 
-            Uri uri = Uri.fromFile(file);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri, "image/");
-            startActivity(intent);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            //openScreenshot(imageFile);
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
             e.printStackTrace();
         }
+    }
+
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = FileProvider.getUriForFile(humanVsHuman.this, BuildConfig.APPLICATION_ID + ".provider",imageFile);
+        intent.setDataAndType(uri, "image/*");
+        startActivity(intent);
     }
 //fine parte aggiunta
     void findBestMove(){

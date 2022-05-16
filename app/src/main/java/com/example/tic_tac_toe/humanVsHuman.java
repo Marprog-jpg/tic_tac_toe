@@ -106,34 +106,38 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
+
         if(view.getId() != R.id.button_screen) {
-            System.out.println("WTFFFFFF");
+
 
             char characterToPutIntoButton;
-            if (turn % 2 == 0) {
-                characterToPutIntoButton = 'x';
-                textViewTurnPlayer.setText(namePlayer2);
-            } else {
-                characterToPutIntoButton = 'o';
-                textViewTurnPlayer.setText(namePlayer1);
 
-
-            }
 
             for (int i = 0; i < boardSize; i++) {
                 if (view.getId() == button_ids[i]) {
                     if (board[i] == ' ') {
+                        if (turn % 2 == 0) {
+                            characterToPutIntoButton = 'x';
+                            textViewTurnPlayer.setText(namePlayer2);
+                        } else {
+                            characterToPutIntoButton = 'o';
+                            textViewTurnPlayer.setText(namePlayer1);
+
+
+                        }
                         game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
                         board[i] = characterToPutIntoButton;
+
+                        checkWinner();
+                        turn++;
+                        textViewTurnNumber.setText(String.valueOf(turn));
                     }
                 }
             }
 
             System.out.println(board);
 
-            checkWinner();
-            turn++;
-            textViewTurnNumber.setText(String.valueOf(turn));
+
         }else{
             System.out.println("DENTRO");
             takeScreenshot();

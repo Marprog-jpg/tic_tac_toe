@@ -89,37 +89,45 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         int positionOnBoardToChange;
         int bestMove;
 
-        characterToPutIntoButton = 'x';
-        textViewTurnPlayer.setText(namePlayer2);
-        for (int i = 0; i < boardSize; i++) {
-            if (view.getId() == button_ids[i]) {
-                if (board[i] == ' ') {
-                    game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
-                    board[i] = characterToPutIntoButton;
+        if(turn % 2 == 0){
+            for (int i = 0; i < boardSize; i++) {
+                if (view.getId() == button_ids[i]) {
+                    if (board[i] == ' ') {
+                        characterToPutIntoButton = 'x';
+                        textViewTurnPlayer.setText(namePlayer2);
+                        game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                        board[i] = characterToPutIntoButton;
+                        turn++;
+                    }
                 }
             }
         }
+        if(turn % 2 != 0){
+            characterToPutIntoButton = 'o';
+            textViewTurnPlayer.setText(namePlayer1);
+            //(new Handler()).postDelayed(this::findBestMove, 1000);
+            turn++;
 
-        characterToPutIntoButton = 'o';
-        textViewTurnPlayer.setText(namePlayer1);
-        //(new Handler()).postDelayed(this::findBestMove, 1000);
-        turn++;
+            fakeBoard = board.clone();
 
-        fakeBoard = board.clone();
+            System.out.println();
+            System.out.println();
+            System.out.println("REAL TURN " + turn + "AFTER ANNA'S MOVE");
+            printCurrentBoard(board);
+            System.out.println();
 
-        System.out.println();
-        System.out.println();
-        System.out.println("REAL TURN " + turn + "AFTER ANNA'S MOVE");
-        printCurrentBoard(board);
-        System.out.println();
+            bestMove = findBestMove();
 
-        bestMove = findBestMove();
+            //minimax(fakeBoard, 1, 'o', 0);
+            bestMoveForComputer.setText(String.valueOf(bestMove));
 
-                //minimax(fakeBoard, 1, 'o', 0);
-        bestMoveForComputer.setText(String.valueOf(bestMove));
+            game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));
+            board[bestMove] = characterToPutIntoButton;
 
-        game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));
-        board[bestMove] = characterToPutIntoButton;
+
+        }
+
+        checkWinner();
 
 
 
@@ -136,7 +144,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
         System.out.println(board);
 
-    checkWinner();
+
 
 
         textViewTurnNumber.setText(String.valueOf(turn));

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -219,12 +222,22 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
     private void takeScreenshot() {
 
         Date now = new Date();
-        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+        DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + "Pictures" + "/" + "Screenshots" + "/" + now + ".jpg";
             System.out.println(mPath);
+            String folderPath = Environment.getExternalStorageDirectory().toString() + "/" + "Pictures" + "/" + "Screenshots";
+
+            File directory = new File(folderPath);
+            if (! directory.exists()){
+                directory.mkdir();
+                // If you require it to make the entire directory path including parents,
+                // use directory.mkdirs(); here instead.
+            }
+
             // create bitmap screen capture
             View v1 = getWindow().getDecorView().getRootView();
             //View v1 = getWindow().getDecorView().findViewById(android.R.id.content);

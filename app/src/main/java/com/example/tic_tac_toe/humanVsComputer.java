@@ -102,6 +102,10 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
                 }
             }
         }
+
+
+
+
         if(turn % 2 != 0){
             characterToPutIntoButton = 'o';
             textViewTurnPlayer.setText(namePlayer1);
@@ -119,6 +123,16 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
             bestMove = findBestMove();
 
             //minimax(fakeBoard, 1, 'o', 0);
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("done");
+
+
+                }
+            }, 1000);
             bestMoveForComputer.setText(String.valueOf(bestMove));
 
             game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));

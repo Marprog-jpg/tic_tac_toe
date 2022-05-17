@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivity3(){
-        Intent intent = new Intent(this, humanVsComputer.class);
+        Intent intent = new Intent(this, humanVsHuman.class);
         intent.putExtra("scelta","1");
         startActivity(intent);
     }

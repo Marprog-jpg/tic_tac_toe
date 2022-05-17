@@ -10,7 +10,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class humanVsHuman extends AppCompatActivity implements View.OnClickListener{
 
@@ -64,25 +67,29 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             ' ', ' ', ' '};
     int[] magicSquare = new int[]{4, 9, 2, 3, 5, 7, 8, 1, 6};
 
-    private int turn = 0;
+    private int turn = 1;
 
     private Button screenShot_btn;
 
 
 
+    char[] fakeBoard;
+    String matchType = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int[][] gameMatrix = new int[3][3];
         super.onCreate(savedInstanceState);
-//inizio parte aggiunta
 
-        //errore nel lissener
- //fine parte aggiunta
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            matchType = extras.getString("scelta");
+        }
 
         setContentView(R.layout.activity_human_vs_human);
-        String datopassato = getIntent().getExtras().getString("scelta");
         initializeGameButtons();
-        System.out.println("tipo di gioco (1=1vbot 0=1v1):"+ datopassato);
+        System.out.println("tipo di gioco (1=1vbot 0=1v1):" + matchType);
         textViewScorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
         textViewScorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
 
@@ -101,10 +108,11 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         textViewTurnNumber.setText(String.valueOf(turn));
         textViewTurnPlayer.setText(namePlayer1);
 
+
+
     }
 
-    @Override
-    public void onClick(View view) {
+    public void humanVsHumanMatch(View view){
 
 
         if(view.getId() != R.id.button_screen) {
@@ -116,7 +124,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             for (int i = 0; i < boardSize; i++) {
                 if (view.getId() == button_ids[i]) {
                     if (board[i] == ' ') {
-                        if (turn % 2 == 0) {
+                        if (turn % 2 != 0) {
                             characterToPutIntoButton = 'x';
                             textViewTurnPlayer.setText(namePlayer2);
                         } else {
@@ -127,10 +135,11 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                         }
                         game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
                         board[i] = characterToPutIntoButton;
-
-                        checkWinner();
                         turn++;
+
+
                         textViewTurnNumber.setText(String.valueOf(turn));
+                        checkWinner();
                     }
                 }
             }
@@ -142,6 +151,86 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             System.out.println("DENTRO");
             takeScreenshot();
         }
+    }
+
+    public void humanVsComputerMatch(View view){
+        char characterToPutIntoButton;
+        int positionOnBoardToChange;
+        int bestMove;
+        System.out.println("WHAT AM I DOING HERE????");
+
+        if(turn % 2 != 0){
+            textViewTurnPlayer.setText(namePlayer1);
+            for (int i = 0; i < boardSize; i++) {
+                if (view.getId() == button_ids[i]) {
+                    if (board[i] == ' ') {
+                        characterToPutIntoButton = 'x';
+                        textViewTurnPlayer.setText(namePlayer2);
+                        game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                        board[i] = characterToPutIntoButton;
+                        if(checkWinner()){
+
+                        }else{
+                            turn++;
+                            textViewTurnNumber.setText(String.valueOf(turn));
+                        }
+
+
+                    }
+                }
+            }
+        }
+        characterToPutIntoButton = 'o';
+        bestMove = findBestMove();
+
+        textViewTurnPlayer.setText(namePlayer2);
+        if(turn % 2 == 0) {
+
+
+            final Handler handler = new Handler();
+            char finalCharacterToPutIntoButton = characterToPutIntoButton;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    //(new Handler()).postDelayed(this::findBestMove, 1000);
+
+
+                    fakeBoard = board.clone();
+
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("REAL TURN " + turn + "AFTER ANNA'S MOVE");
+                    printCurrentBoard(board);
+                    System.out.println();
+
+
+                    System.out.println("done");
+                    game_btns.get(bestMove).setText(String.valueOf(finalCharacterToPutIntoButton));
+                    board[bestMove] = finalCharacterToPutIntoButton;
+                    turn++;
+                    textViewTurnNumber.setText(String.valueOf(turn));
+                    textViewTurnPlayer.setText(namePlayer1);
+                    checkWinner();
+
+                }
+
+
+            }, 1000);
+        }
+
+}
+
+
+
+    @Override
+    public void onClick(View view) {
+        if(matchType.equals("0")){
+            humanVsHumanMatch(view);
+        }else if(matchType.equals("1")){
+            humanVsComputerMatch(view);
+        }
+
     }
 
     protected void initializeGameButtons(){
@@ -159,23 +248,25 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    void checkWinner() {
+    boolean checkWinner() {
         boolean boardIsFull = true;
         if (hasWon('x')){
             System.out.println("x win!");
             scorePlayer1++;
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
+
             Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer1,Toast.LENGTH_LONG).show();
             generateNewGameBoardAfterEnd();
-            return;
+            return true;
         }
         else if (hasWon('o')){
             System.out.println("o win!");
             scorePlayer2++;
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
+
             Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer2,Toast.LENGTH_LONG).show();
             generateNewGameBoardAfterEnd();
-            return;
+            return true;
         }
         else{
             System.out.println("No winner yet...");
@@ -191,8 +282,9 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(humanVsHuman.this, "Pareggio",Toast.LENGTH_LONG).show();
 
             generateNewGameBoardAfterEnd();
-            return;
+            return true;
         }
+        return false;
     }
 
     boolean hasWon(char player) {
@@ -211,11 +303,11 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                 ' ', ' ', ' ',
                 ' ', ' ', ' '};
 
-        turn = 0;
+        turn = 1;
         textViewTurnNumber.setText(String.valueOf(turn));
         textViewTurnPlayer.setText(namePlayer1);
 
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 9; i++){
             game_btns.get(i).setText("");
         }
 
@@ -273,25 +365,47 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 //fine parte aggiunta
-    void findBestMove(){
-        int bestScore = -999;
-        int bestMove;
-        int score;
+int findBestMove() {
+    char[] fakeBoard = board.clone();
+    int bestScore = 0;
+    int worstScore = 99999;
+    int bestMove = -1;
+    int score = 0;
+    Random random = new Random();
+
+    do{
+        //bestMove = (int) (Math.random()%7 + 1);
+        bestMove = random.nextInt((8 - 0) + 1) + 0;
+
+        System.out.println(bestMove);
+        if(board[bestMove] == ' '){
+            return bestMove;
+        }
+    }while(true);
+
+
+}
+
+    boolean checkIfBoardIsFull(char[] board){
         for(int i = 0; i < 9; i++){
             if(board[i] == ' '){
-                board[i] = 'o';
-                score = minimax(board);
-                if(score > bestScore){
-                    score = bestScore;
-                    bestMove = i;
-                }
-                board[i] = ' ';
+                return false;
             }
         }
+        return true;
     }
-    int minimax(char[] board){
-        return 1;
+
+    protected void printCurrentBoard(char[] board){
+        for(int i = 0; i < 9; i=i+3){
+            System.out.print(board[i] + " ");
+            System.out.print(board[i+1] + " ");
+            System.out.print(board[i+2] + " ");
+
+            System.out.println();
+
+        }
     }
+
 }
 
 // Queste righe di codice sono state prese da: https://fowlie.github.io/2018/08/24/winning-algorithm-for-tic-tac-toe-using-a-3x3-magic-square/

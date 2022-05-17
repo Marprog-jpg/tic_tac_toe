@@ -37,7 +37,6 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
     private TextView textViewTurnNumber;
     private TextView textViewTurnPlayer;
 
-    private TextView bestMoveForComputer;
 
     String namePlayer1;
     String namePlayer2;
@@ -70,7 +69,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         textViewTurnNumber = (TextView) findViewById(R.id.turnNumber);
         textViewTurnPlayer = (TextView) findViewById(R.id.turnPlayer);
 
-        bestMoveForComputer = (TextView) findViewById(R.id.bestMoveForComputer);
+        //bestMoveForComputer = (TextView) findViewById(R.id.bestMoveForComputer);
 
         namePlayer1 = "Anna";
         namePlayer2 = "Bob";
@@ -133,7 +132,7 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
 
                 }
             }, 1000);
-            bestMoveForComputer.setText(String.valueOf(bestMove));
+            //bestMoveForComputer.setText(String.valueOf(bestMove));
 
             game_btns.get(bestMove).setText(String.valueOf(characterToPutIntoButton));
             board[bestMove] = characterToPutIntoButton;
@@ -288,13 +287,6 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         return true;
     }
 
-
-
-
-    ArrayList<Integer> arrListCaselleOccupate = new ArrayList<>();
-    int lastPositionBeforeDescending = 0;
-
-    int realMovesMadeToEnd = 0;
 
 
 }

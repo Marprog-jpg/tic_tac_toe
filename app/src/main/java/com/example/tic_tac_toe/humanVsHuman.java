@@ -80,9 +80,9 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
  //fine parte aggiunta
 
         setContentView(R.layout.activity_human_vs_human);
-
+        String datopassato = getIntent().getExtras().getString("scelta");
         initializeGameButtons();
-
+        System.out.println("tipo di gioco (1=1vbot 0=1v1):"+ datopassato);
         textViewScorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
         textViewScorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
 

@@ -61,9 +61,9 @@ public class humanVsComputer extends AppCompatActivity implements View.OnClickLi
         int[][] gameMatrix = new int[3][3];
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_human_vs_computer);
-
+        String datopassato = getIntent().getExtras().getString("scelta");
         initializeGameButtons();
-
+        System.out.println("tipo di gioco (1=1vbot 0=1v1):"+ datopassato);
         textViewScorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
         textViewScorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
 

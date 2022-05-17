@@ -46,12 +46,14 @@ public class inserimento_nomi extends AppCompatActivity {
         Intent intent = new Intent(this, humanVsHuman.class);
         intent.putExtra("nome1", nome1.getText());
         intent.putExtra("nome2", nome2.getText());
+        intent.putExtra("scelta","0");
         startActivity(intent);
     }
     public void openActivity3(){
         Intent intent = new Intent(this, humanVsHuman.class);
         intent.putExtra("nome1", nome1.getText());
-        intent.putExtra("nome2","bot");
+        intent.putExtra("nome2","Bot");
+        intent.putExtra("scelta","1");
         startActivity(intent);
     }
 }

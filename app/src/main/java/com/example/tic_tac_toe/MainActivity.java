@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivity2(){
-        Intent intent = new Intent(this, humanVsHuman.class);
+        Intent intent = new Intent(this, inserimento_nomi.class); //humanvshuman
         intent.putExtra("scelta","0");
         startActivity(intent);
     }
 
     public void openActivity3(){
-        Intent intent = new Intent(this, humanVsHuman.class);
+        Intent intent = new Intent(this, inserimento_nomi.class); //humanvsbot
         intent.putExtra("scelta","1");
         startActivity(intent);
     }

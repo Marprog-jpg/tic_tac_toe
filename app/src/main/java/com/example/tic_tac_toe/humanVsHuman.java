@@ -78,6 +78,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         int[][] gameMatrix = new int[3][3];
         super.onCreate(savedInstanceState);
 
@@ -85,6 +86,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
         if (extras != null) {
             matchType = extras.getString("scelta");
+            namePlayer1 = extras.getString("nome1");
+            namePlayer2 = extras.getString("nome2");
         }
 
         setContentView(R.layout.activity_human_vs_human);
@@ -98,9 +101,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
         screenShot_btn = (Button)findViewById(R.id.button_screen);
         screenShot_btn.setOnClickListener(this);
-
-        namePlayer1 = "Anna";
-        namePlayer2 = "Bob";
 
         textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
         textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
@@ -225,7 +225,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(matchType.equals("0")){
+        if(matchType.equals("0")){ //non riesce a prendere il valore perciò esce eccezione visto che è null
             humanVsHumanMatch(view);
         }else if(matchType.equals("1")){
             humanVsComputerMatch(view);

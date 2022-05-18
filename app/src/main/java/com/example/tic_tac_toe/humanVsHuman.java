@@ -1,11 +1,13 @@
 package com.example.tic_tac_toe;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -75,6 +77,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
     private int turn = 1;
 
     private Button screenShot_btn;
+    private static final int STORAGE_PERMISSION_CODE = 101;
 
 
 
@@ -105,7 +108,16 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         textViewTurnPlayer = (TextView) findViewById(R.id.turnPlayer);
 
         screenShot_btn = (Button)findViewById(R.id.button_screen);
-        screenShot_btn.setOnClickListener(this);
+
+        screenShot_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
+                takeScreenshot();
+            }
+        });
 
         textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
         textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
@@ -120,10 +132,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
     }
 
     public void humanVsHumanMatch(View view){
-
-
-        if(view.getId() != R.id.button_screen) {
-
 
             char characterToPutIntoButton;
 
@@ -154,11 +162,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             System.out.println(board);
 
 
-        }else{
-            System.out.println("DENTRO");
-            takeScreenshot();
         }
-    }
+
 
     public void humanVsComputerMatch(View view){
         char characterToPutIntoButton;
@@ -280,6 +285,17 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         }
 
 
+    }
+
+    public void checkPermission(String permission, int requestCode)
+    {
+        // Checking if permission is not granted
+        if (ContextCompat.checkSelfPermission(humanVsHuman.this, permission) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(humanVsHuman.this, new String[] { permission }, requestCode);
+        }
+        else {
+            Toast.makeText(humanVsHuman.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        }
     }
 
     boolean checkWinner() {

@@ -115,6 +115,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
 
 
+
+
     }
 
     public void humanVsHumanMatch(View view){
@@ -164,10 +166,19 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         int bestMove;
         System.out.println("WHAT AM I DOING HERE????");
 
+
+
         if(turn % 2 != 0){
             textViewTurnPlayer.setText(namePlayer1);
             for (int i = 0; i < boardSize; i++) {
                 if (view.getId() == button_ids[i]) {
+
+                    for(int j = 0; j < boardSize; j++){
+                        //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                        game_btns.get(j).setClickable(false);
+                        game_btns.get(j).setEnabled(false);
+                    }
+
                     if (board[i] == ' ') {
                         characterToPutIntoButton = 'x';
                         textViewTurnPlayer.setText(namePlayer2);
@@ -180,23 +191,25 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                             textViewTurnNumber.setText(String.valueOf(turn));
                         }
 
+
+                    }else{
                         for(int j = 0; j < boardSize; j++){
                             //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
-                            game_btns.get(j).setClickable(false);
+                            game_btns.get(j).setClickable(true);
+                            game_btns.get(j).setEnabled(true);
                         }
                     }
                 }
             }
         }
-        characterToPutIntoButton = 'o';
-        bestMove = findBestMove();
-        for(int j = 0; j < boardSize; j++){
-            //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
-            game_btns.get(j).setClickable(false);
-        }
 
-        textViewTurnPlayer.setText(namePlayer2);
         if(turn % 2 == 0) {
+            characterToPutIntoButton = 'o';
+            bestMove = findBestMove();
+
+
+            textViewTurnPlayer.setText(namePlayer2);
+
 
 
 
@@ -227,15 +240,17 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                     textViewTurnPlayer.setText(namePlayer1);
                     checkWinner();
 
+                    for(int j = 0; j < boardSize; j++){
+                        //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                        game_btns.get(j).setClickable(true);
+                        game_btns.get(j).setEnabled(true);
+                    }
+
                 }
 
 
             }, 1000);
 
-            for(int i = 0; i < boardSize; i++){
-                //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
-                game_btns.get(i).setClickable(true);
-            }
         }
 
 }
@@ -276,6 +291,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
             Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer1,Toast.LENGTH_LONG).show();
             generateNewGameBoardAfterEnd();
+
             return true;
         }
         else if (hasWon('o')){
@@ -328,6 +344,12 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
         for(int i = 0; i < 9; i++){
             game_btns.get(i).setText("");
+        }
+
+        for(int j = 0; j < boardSize; j++){
+            //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+            game_btns.get(j).setClickable(true);
+            game_btns.get(j).setEnabled(true);
         }
 
 

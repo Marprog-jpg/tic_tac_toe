@@ -31,6 +31,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+
+/*
+* usare setclicable o setenable per bloccare il bot
+* */
+
 public class humanVsHuman extends AppCompatActivity implements View.OnClickListener{
 
     private List<Button> game_btns;
@@ -175,16 +180,24 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                             textViewTurnNumber.setText(String.valueOf(turn));
                         }
 
-
+                        for(int j = 0; j < boardSize; j++){
+                            //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                            game_btns.get(j).setClickable(false);
+                        }
                     }
                 }
             }
         }
         characterToPutIntoButton = 'o';
         bestMove = findBestMove();
+        for(int j = 0; j < boardSize; j++){
+            //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+            game_btns.get(j).setClickable(false);
+        }
 
         textViewTurnPlayer.setText(namePlayer2);
         if(turn % 2 == 0) {
+
 
 
             final Handler handler = new Handler();
@@ -194,6 +207,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                 public void run() {
 
                     //(new Handler()).postDelayed(this::findBestMove, 1000);
+
 
 
                     fakeBoard = board.clone();
@@ -217,6 +231,11 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
 
             }, 1000);
+
+            for(int i = 0; i < boardSize; i++){
+                //game_btns.get(i).setText(String.valueOf(characterToPutIntoButton));
+                game_btns.get(i).setClickable(true);
+            }
         }
 
 }
@@ -225,7 +244,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(matchType.equals("0")){ //non riesce a prendere il valore perciò esce eccezione visto che è null
+        if(matchType.equals("0")){
             humanVsHumanMatch(view);
         }else if(matchType.equals("1")){
             humanVsComputerMatch(view);

@@ -26,9 +26,14 @@ public class insertName extends AppCompatActivity {
         if (extras != null) {
             matchType = extras.getString("scelta");
         }
-
-            nome1 = (EditText) findViewById(R.id.nome_player1);
-            nome2 = (EditText) findViewById(R.id.nome_player2);
+            if(matchType.equals("0")){
+                nome1 = (EditText) findViewById(R.id.nome_player1);
+                nome2 = (EditText) findViewById(R.id.nome_player2);
+            }else{
+                nome1 = (EditText) findViewById(R.id.nome_player1);
+                nome2 = (EditText) findViewById(R.id.nome_player2);
+                nome2.setEnabled(false);
+            }
 
         bottone = (Button) findViewById(R.id.button_inserimento);
         bottone.setOnClickListener(new View.OnClickListener() {

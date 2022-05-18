@@ -3,18 +3,9 @@ package com.example.tic_tac_toe;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
@@ -43,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivity2(){
-        Intent intent = new Intent(this, inserimento_nomi.class); //humanvshuman
+        Intent intent = new Intent(this, insertName.class); //humanvshuman
         intent.putExtra("scelta","0");
         startActivity(intent);
     }
 
     public void openActivity3(){
-        Intent intent = new Intent(this, inserimento_nomi.class); //humanvsbot
+        Intent intent = new Intent(this, insertName.class); //humanvsbot
         intent.putExtra("scelta","1");
         startActivity(intent);
     }

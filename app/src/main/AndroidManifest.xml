@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tic_tac_toe">
         <activity
-            android:name=".inserimento_nomi"
+            android:name=".insertName"
             android:exported="false" />
         <activity
             android:name=".humanVsComputer"

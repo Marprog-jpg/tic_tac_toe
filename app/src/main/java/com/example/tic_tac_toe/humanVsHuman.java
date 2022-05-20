@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,12 +16,15 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -109,15 +113,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
         screenShot_btn = (Button)findViewById(R.id.button_screen);
 
-        screenShot_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
 
-                checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
-                takeScreenshot();
-            }
-        });
 
         textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
         textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
@@ -287,6 +283,53 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void openEndGameOverlay(){
+        Intent intent = new Intent(this, endGameOverlayActivity.class); //humanvshuman
+        byte[] screenShotOfCurrentView = takeScreenshot();
+        System.out.println("DASDSADSADSADSADSADDSADSADSA: " + screenShotOfCurrentView);
+        intent.putExtra("picture", screenShotOfCurrentView);
+        startActivity(intent);
+    }
+
+    private byte[] takeScreenshot() {
+
+        Date now = new Date();
+        DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            //View v1 = getWindow().getDecorView().findViewById(android.R.id.content);
+
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            return byteArray;
+
+
+
+            //openScreenshot(imageFile);
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
     public void checkPermission(String permission, int requestCode)
     {
         // Checking if permission is not granted
@@ -306,6 +349,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
 
             Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer1,Toast.LENGTH_LONG).show();
+            openEndGameOverlay();
             generateNewGameBoardAfterEnd();
 
             return true;
@@ -316,6 +360,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
 
             Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer2,Toast.LENGTH_LONG).show();
+            openEndGameOverlay();
             generateNewGameBoardAfterEnd();
             return true;
         }
@@ -331,7 +376,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         if(boardIsFull == true){
             System.out.println("Draw!");
             Toast.makeText(humanVsHuman.this, "Pareggio",Toast.LENGTH_LONG).show();
-
+            openEndGameOverlay();
             generateNewGameBoardAfterEnd();
             return true;
         }
@@ -372,55 +417,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     }
     //inizio parte aggiunta
-    private void takeScreenshot() {
 
-        Date now = new Date();
-        DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-
-        try {
-            // image naming and path  to include sd card  appending name you choose for file
-
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + "Pictures" + "/" + "Screenshots" + "/" + now + ".jpg";
-            System.out.println(mPath);
-            String folderPath = Environment.getExternalStorageDirectory().toString() + "/" + "Pictures" + "/" + "Screenshots";
-
-            File directory = new File(folderPath);
-            if (! directory.exists()){
-                directory.mkdir();
-                // If you require it to make the entire directory path including parents,
-                // use directory.mkdirs(); here instead.
-            }
-
-            // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            //View v1 = getWindow().getDecorView().findViewById(android.R.id.content);
-
-            v1.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            //openScreenshot(imageFile);
-        } catch (Throwable e) {
-            // Several error may come out with file handling or DOM
-            e.printStackTrace();
-        }
-    }
-
-    private void openScreenshot(File imageFile) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        Uri uri = FileProvider.getUriForFile(humanVsHuman.this, BuildConfig.APPLICATION_ID + ".provider",imageFile);
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
-    }
 //fine parte aggiunta
 int findBestMove() {
     char[] fakeBoard = board.clone();

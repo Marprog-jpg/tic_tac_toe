@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tic_tac_toe">
         <activity
+            android:name=".endGameOverlayActivity"
+            android:exported="false"
+            android:theme="@style/activity_end_game_overlay_style"/>
+        <activity
             android:name=".insertName"
             android:exported="false" />
         <activity

@@ -7,7 +7,7 @@
     tools:context=".endGameOverlayActivity">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/endGameMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="X Victory!"
@@ -29,7 +29,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/endGameMessageTextView"
         app:strokeColor="@color/black"
         app:strokeWidth="0.7dp"
         tools:ignore="TextContrastCheck" />

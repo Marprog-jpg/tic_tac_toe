@@ -42,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@android:color/transparent"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -64,7 +65,8 @@
                 app:strokeColor="@color/black"
                 app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="271dp"
-                tools:layout_editor_absoluteY="86dp" />
+                tools:layout_editor_absoluteY="86dp"
+                android:background="@android:color/transparent"/>
 
             <Button
                 android:id="@+id/game_btn_2"

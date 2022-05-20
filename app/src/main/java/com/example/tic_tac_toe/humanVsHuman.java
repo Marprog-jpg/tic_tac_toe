@@ -80,7 +80,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     private int turn = 1;
 
-    private Button screenShot_btn;
     private static final int STORAGE_PERMISSION_CODE = 101;
 
 
@@ -111,7 +110,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         textViewTurnNumber = (TextView) findViewById(R.id.turnNumber);
         textViewTurnPlayer = (TextView) findViewById(R.id.turnPlayer);
 
-        screenShot_btn = (Button)findViewById(R.id.button_screen);
 
 
 
@@ -283,11 +281,11 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void openEndGameOverlay(){
+    public void openEndGameOverlay(String endGameMessage){
         Intent intent = new Intent(this, endGameOverlayActivity.class); //humanvshuman
         byte[] screenShotOfCurrentView = takeScreenshot();
-        System.out.println("DASDSADSADSADSADSADDSADSADSA: " + screenShotOfCurrentView);
         intent.putExtra("picture", screenShotOfCurrentView);
+        intent.putExtra("endGameMessage", endGameMessage);
         startActivity(intent);
     }
 
@@ -349,7 +347,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
 
             Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer1,Toast.LENGTH_LONG).show();
-            openEndGameOverlay();
+            openEndGameOverlay(namePlayer1 + " Won!");
             generateNewGameBoardAfterEnd();
 
             return true;
@@ -360,7 +358,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
 
             Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer2,Toast.LENGTH_LONG).show();
-            openEndGameOverlay();
+            openEndGameOverlay(namePlayer2 + " Won!");
             generateNewGameBoardAfterEnd();
             return true;
         }
@@ -376,8 +374,9 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         if(boardIsFull == true){
             System.out.println("Draw!");
             Toast.makeText(humanVsHuman.this, "Pareggio",Toast.LENGTH_LONG).show();
-            openEndGameOverlay();
+            openEndGameOverlay("Draw!");
             generateNewGameBoardAfterEnd();
+
             return true;
         }
         return false;

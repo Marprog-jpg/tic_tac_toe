@@ -246,19 +246,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
-    <Button
-        android:id="@+id/button_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:backgroundTint="#FF0000"
-        android:text="stampa"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tableLayout"
-        app:strokeColor="@color/black"
-        app:strokeWidth="0.7dp"
-        tools:ignore="TextContrastCheck" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

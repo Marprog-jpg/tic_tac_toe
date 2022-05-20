@@ -17,6 +17,7 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -28,6 +29,7 @@ public class endGameOverlayActivity extends AppCompatActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
     Bitmap screenShotOfPreviousView;
 
+    private TextView endGameMessageTextView;
 
 
 
@@ -37,8 +39,13 @@ public class endGameOverlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_game_overlay);
 
+        endGameMessageTextView = (TextView) findViewById(R.id.endGameMessageTextView);
+
         Bundle extras = getIntent().getExtras();
         byte[] byteArray = extras.getByteArray("picture");
+        String endGameMessage = extras.getString("endGameMessage");
+
+        endGameMessageTextView.setText(endGameMessage);
 
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
@@ -108,7 +115,7 @@ public class endGameOverlayActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(endGameOverlayActivity.this, new String[] { permission }, requestCode);
         }
         else {
-            Toast.makeText(endGameOverlayActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(endGameOverlayActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
         }
     }
 

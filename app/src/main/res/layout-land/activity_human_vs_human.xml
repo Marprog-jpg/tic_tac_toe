@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/transparentboard" />
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="300dp"
@@ -22,10 +32,10 @@
 
             <Button
                 android:id="@+id/game_btn_0"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -36,10 +46,10 @@
 
             <Button
                 android:id="@+id/game_btn_1"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -51,10 +61,10 @@
 
             <Button
                 android:id="@+id/game_btn_2"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -72,10 +82,10 @@
 
             <Button
                 android:id="@+id/game_btn_3"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -87,10 +97,10 @@
 
             <Button
                 android:id="@+id/game_btn_4"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -102,10 +112,10 @@
 
             <Button
                 android:id="@+id/game_btn_5"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -124,10 +134,10 @@
 
             <Button
                 android:id="@+id/game_btn_6"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -139,10 +149,10 @@
 
             <Button
                 android:id="@+id/game_btn_7"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -154,10 +164,10 @@
 
             <Button
                 android:id="@+id/game_btn_8"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -169,23 +179,6 @@
         </TableRow>
     </TableLayout>
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="1dp"
-        android:layout_height="729dp"
-        android:background="?android:attr/listDivider"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="1dp" />
-
-    <View
-        android:id="@+id/divider4"
-        android:layout_width="1dp"
-        android:layout_height="729dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="#8A0909"
-        tools:layout_editor_absoluteX="255dp"
-        tools:layout_editor_absoluteY="1dp" />
-
     <TextView
         android:id="@+id/turnNumber"
         android:layout_width="101dp"
@@ -194,7 +187,7 @@
         android:gravity="center"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -204,46 +197,31 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.912"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/turnNumber"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/turnNumber" />
 
     <TextView
         android:id="@+id/scorePlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginEnd="61dp"
         android:layout_marginBottom="156dp"
         android:text="TextView"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tableLayout"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/scorePlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="61dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="156dp"
         android:text="TextView"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tableLayout" />
-
-    <Space
-        android:id="@+id/space"
-        android:layout_width="83dp"
-        android:layout_height="79dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

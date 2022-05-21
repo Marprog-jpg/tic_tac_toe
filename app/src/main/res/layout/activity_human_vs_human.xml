@@ -23,44 +23,47 @@
 
             <Button
                 android:id="@+id/game_btn_0"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
-                android:textColor="@color/black"
-                android:textSize="30sp"
+                android:backgroundTint="@android:color/transparent"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
-                app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="176dp"
                 tools:layout_editor_absoluteY="92dp" />
 
             <Button
                 android:id="@+id/game_btn_1"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
-                app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="271dp"
                 tools:layout_editor_absoluteY="86dp" />
 
             <Button
                 android:id="@+id/game_btn_2"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
-                app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
                 tools:layout_editor_absoluteX="172dp"
                 tools:layout_editor_absoluteY="157dp" />
@@ -73,13 +76,15 @@
 
             <Button
                 android:id="@+id/game_btn_3"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
@@ -88,13 +93,15 @@
 
             <Button
                 android:id="@+id/game_btn_4"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
@@ -103,13 +110,15 @@
 
             <Button
                 android:id="@+id/game_btn_5"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
@@ -125,13 +134,15 @@
 
             <Button
                 android:id="@+id/game_btn_6"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
@@ -140,13 +151,15 @@
 
             <Button
                 android:id="@+id/game_btn_7"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"
@@ -155,13 +168,15 @@
 
             <Button
                 android:id="@+id/game_btn_8"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+                android:backgroundTint="@android:color/transparent"
                 android:text=""
-                android:textColor="@color/black"
-                android:textSize="30sp"
+
+                android:textColor="#000000"
+                android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
                 app:strokeWidth="0.5dp"

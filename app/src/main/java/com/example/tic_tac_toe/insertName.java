@@ -12,6 +12,10 @@ import android.widget.TextView;
 public class insertName extends AppCompatActivity {
 
     private Button bottone;
+
+    private Button easyBotBtn;
+    private Button hardBotBtn;
+
     private EditText nome1;
     private EditText nome2;
 
@@ -46,9 +50,43 @@ public class insertName extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        easyBotBtn = (Button) findViewById(R.id.easyBotBtn);
+        bottone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(matchType.equals("0")){
+                    openActivity2();
+                }else{
+                    openActivity3();
+                }
+            }
+        });
+
+
+        hardBotBtn = (Button) findViewById(R.id.hardBotBtn);
+        bottone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(matchType.equals("0")){
+                    openActivity2();
+                }else{
+                    openActivity3();
+                }
+            }
+        });
     }
     public void openActivity2(){
         Intent intent = new Intent(this, humanVsHuman.class);
+        if(nome1.getText().toString().equals("")){
+            nome1.setText("Player 1");
+        }
+        if(nome2.getText().toString().equals("")){
+            nome2.setText("Player 2");
+        }
+
         intent.putExtra("nome1", nome1.getText().toString());
         intent.putExtra("nome2", nome2.getText().toString());
         intent.putExtra("scelta","0");
@@ -56,6 +94,11 @@ public class insertName extends AppCompatActivity {
     }
     public void openActivity3(){
         Intent intent = new Intent(this, humanVsHuman.class);
+
+        if(nome1.getText().toString().equals("")){
+            nome1.setText("Player 1");
+        }
+
         intent.putExtra("nome1", nome1.getText().toString());
         intent.putExtra("nome2","Bot");
         intent.putExtra("scelta","1");

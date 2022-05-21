@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -22,10 +24,12 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 public class endGameOverlayActivity extends AppCompatActivity {
     private Button screenShot_btn;
+    private Button share_btn;
     private static final int STORAGE_PERMISSION_CODE = 101;
     Bitmap screenShotOfPreviousView;
 
@@ -62,6 +66,16 @@ public class endGameOverlayActivity extends AppCompatActivity {
             }
         });
 
+        share_btn = (Button)findViewById(R.id.share_button);
+
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
+                shareScreenshot(bmp);
+            }
+        });
+
     }
 
 
@@ -93,12 +107,43 @@ public class endGameOverlayActivity extends AppCompatActivity {
             outputStream.flush();
             outputStream.close();
 
+            Toast.makeText(endGameOverlayActivity.this, "Screenshot saved in \"Screenshots\" folder", Toast.LENGTH_SHORT).show();
+
+
             //openScreenshot(imageFile);
         } catch (Throwable e) {
             // Several error may come out with file handling or DOM
             e.printStackTrace();
         }
     }
+
+    private void shareScreenshot(Bitmap icon) {
+
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "title");
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values);
+
+
+        OutputStream outstream;
+        try {
+            outstream = getContentResolver().openOutputStream(uri);
+            icon.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+            outstream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(share, "Share Image"));
+
+
+    }
+
 
     private void openScreenshot(File imageFile) {
         Intent intent = new Intent();

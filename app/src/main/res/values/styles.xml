@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="activity_end_game_overlay_style" parent="Theme.AppCompat.Light.Dialog">
+    <style name="activity_end_game_overlay_style" parent="Theme.MaterialComponents.DayNight.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>

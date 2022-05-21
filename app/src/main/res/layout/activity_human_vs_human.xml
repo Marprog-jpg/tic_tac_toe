@@ -29,7 +29,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/transparent"
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeWidth="0.5dp"
@@ -45,7 +45,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeWidth="0.5dp"
@@ -61,7 +61,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeWidth="0.5dp"
@@ -83,7 +83,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
@@ -100,7 +100,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
@@ -117,7 +117,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
@@ -141,7 +141,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
@@ -158,7 +158,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
@@ -175,7 +175,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:text=""
 
-                android:textColor="#000000"
+                android:textColor="#777"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 app:strokeColor="#000000"
@@ -227,7 +227,7 @@
         app:layout_constraintEnd_toEndOf="@+id/tableLayout"
         app:layout_constraintStart_toStartOf="@+id/tableLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/transparentboard" />
+        app:srcCompat="@drawable/transparentboardmega" />
 
     <Space
         android:id="@+id/space"

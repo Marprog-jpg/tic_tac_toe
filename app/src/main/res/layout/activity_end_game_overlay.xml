@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="300dp"
+    android:background="@drawable/transparentboard"
     tools:context=".endGameOverlayActivity">
 
     <TextView
         android:id="@+id/endGameMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#a1c77d"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,10 +23,10 @@
         android:id="@+id/button_screen"
         android:layout_width="97dp"
         android:layout_height="45dp"
+        android:layout_marginStart="10dp"
         android:backgroundTint="@color/purple_200"
-        android:text="Save to Phone"
 
-        app:cornerRadius="20dp"
+        android:text="Save to Phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endGameMessageTextView"
@@ -37,10 +39,10 @@
         android:id="@+id/share_button"
         android:layout_width="97dp"
         android:layout_height="45dp"
-        android:backgroundTint="@color/purple_200"
+        android:layout_marginEnd="10dp"
 
+        android:backgroundTint="@color/purple_200"
         android:text="Share"
-        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endGameMessageTextView"

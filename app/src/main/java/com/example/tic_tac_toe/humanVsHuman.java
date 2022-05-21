@@ -346,7 +346,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             scorePlayer1++;
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
 
-            Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer1,Toast.LENGTH_LONG).show();
             openEndGameOverlay(namePlayer1 + " Won!");
             generateNewGameBoardAfterEnd();
 
@@ -357,7 +356,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             scorePlayer2++;
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
 
-            Toast.makeText(humanVsHuman.this, "Vittoria Reale di " + namePlayer2,Toast.LENGTH_LONG).show();
             openEndGameOverlay(namePlayer2 + " Won!");
             generateNewGameBoardAfterEnd();
             return true;
@@ -373,7 +371,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         }
         if(boardIsFull == true){
             System.out.println("Draw!");
-            Toast.makeText(humanVsHuman.this, "Pareggio",Toast.LENGTH_LONG).show();
             openEndGameOverlay("Draw!");
             generateNewGameBoardAfterEnd();
 

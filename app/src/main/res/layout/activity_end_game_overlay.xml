@@ -2,15 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
     tools:context=".endGameOverlayActivity">
 
     <TextView
         android:id="@+id/endGameMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X Victory!"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,14 +22,31 @@
         android:layout_width="97dp"
         android:layout_height="45dp"
         android:backgroundTint="@color/purple_200"
-        android:text="stampa"
+        android:text="Save to Phone"
+
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endGameMessageTextView"
+        app:layout_constraintVertical_bias="0.94"
         app:strokeColor="@color/black"
         app:strokeWidth="0.7dp"
         tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/share_button"
+        android:layout_width="97dp"
+        android:layout_height="45dp"
+        android:backgroundTint="@color/purple_200"
+
+        android:text="Share"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endGameMessageTextView"
+        app:layout_constraintVertical_bias="0.949"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.7dp"
+        tools:ignore="TextContrastCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

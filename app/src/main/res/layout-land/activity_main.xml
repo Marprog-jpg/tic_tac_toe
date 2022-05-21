@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cambia Tema"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.426" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -37,9 +26,9 @@
         android:id="@+id/human_vs_human_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginBottom="164dp"
-        android:backgroundTint="#FF9800"
+        android:layout_marginStart="80dp"
+        android:layout_marginBottom="196dp"
+        android:backgroundTint="@color/purple_200"
         android:fontFamily="sans-serif"
         android:text="1v1"
         app:cornerRadius="20dp"
@@ -52,9 +41,9 @@
         android:id="@+id/human_vs_computer_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="152dp"
-        android:layout_marginBottom="164dp"
-        android:backgroundTint="#FF9800"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="196dp"
+        android:backgroundTint="@color/purple_200"
         android:fontFamily="sans-serif"
         android:text="1vbot"
         app:cornerRadius="20dp"
@@ -62,5 +51,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:strokeColor="#000000"
         app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambia Tema"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

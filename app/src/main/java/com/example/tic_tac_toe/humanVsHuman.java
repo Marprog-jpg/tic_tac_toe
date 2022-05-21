@@ -86,6 +86,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     char[] fakeBoard;
     String matchType = null;
+    String botDiffculty = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,16 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             namePlayer1 = extras.getString("nome1");
             namePlayer2 = extras.getString("nome2");
         }
+
+        if(matchType.equals("1")){
+            botDiffculty = extras.getString("botDifficulty");
+            System.out.println("MatchType: " + matchType);
+            System.out.println("botDiffculty: " + botDiffculty);
+
+
+        }
+
+
 
         setContentView(R.layout.activity_human_vs_human);
         initializeGameButtons();
@@ -153,7 +164,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                 }
             }
 
-            System.out.println(board);
+
 
 
         }
@@ -163,7 +174,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         char characterToPutIntoButton;
         int positionOnBoardToChange;
         int bestMove;
-        System.out.println("WHAT AM I DOING HERE????");
 
 
 
@@ -204,7 +214,13 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
         if(turn % 2 == 0) {
             characterToPutIntoButton = 'o';
-            bestMove = findBestMove();
+
+            if(botDiffculty.equals("0")){
+                bestMove = findBestMove();
+            }else{
+                bestMove = findBestMoveHardBot();
+            }
+
 
 
             textViewTurnPlayer.setText(namePlayer2);
@@ -224,14 +240,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
                     fakeBoard = board.clone();
 
-                    System.out.println();
-                    System.out.println();
-                    System.out.println("REAL TURN " + turn + "AFTER ANNA'S MOVE");
-                    printCurrentBoard(board);
-                    System.out.println();
 
 
-                    System.out.println("done");
                     game_btns.get(bestMove).setText(String.valueOf(finalCharacterToPutIntoButton));
                     board[bestMove] = finalCharacterToPutIntoButton;
                     turn++;
@@ -341,8 +351,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
     boolean checkWinner() {
         boolean boardIsFull = true;
-        if (hasWon('x')){
-            System.out.println("x win!");
+        if (hasWon('x', board)){
+
             scorePlayer1++;
             textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
 
@@ -351,8 +361,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
             return true;
         }
-        else if (hasWon('o')){
-            System.out.println("o win!");
+        else if (hasWon('o', board)){
+
             scorePlayer2++;
             textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
 
@@ -361,7 +371,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
             return true;
         }
         else{
-            System.out.println("No winner yet...");
+
         }
         for(int i = 0; i < 9; i++) {
             if (board[i] == ' ') {
@@ -370,7 +380,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
         }
         if(boardIsFull == true){
-            System.out.println("Draw!");
+
             openEndGameOverlay("Draw!");
             generateNewGameBoardAfterEnd();
 
@@ -379,7 +389,7 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    boolean hasWon(char player) {
+    boolean hasWon(char player, char[] board) {
         for (int i = 0; i < 9; i++)
             for (int j = 0; j < 9; j++)
                 for (int k = 0; k < 9; k++)
@@ -427,7 +437,7 @@ int findBestMove() {
         //bestMove = (int) (Math.random()%7 + 1);
         bestMove = random.nextInt((8 - 0) + 1) + 0;
 
-        System.out.println(bestMove);
+
         if(board[bestMove] == ' '){
             return bestMove;
         }
@@ -456,6 +466,126 @@ int findBestMove() {
         }
     }
 
+    int findBestMoveHardBot() {
+        char[] fakeBoard = board.clone();
+        int bestScore = 99999;
+        int worstScore = 99999;
+        int bestMove = -1;
+        int score = 0;
+        for (int i = 0; i < 9; i++) {
+            if (board[i] == ' ') {
+                board[i] = 'o';
+
+                printCurrentBoard(board);
+
+                fakeBoard = board.clone();
+                score = minimax(fakeBoard, 0, 'o', 1);
+                if (score < bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
+                board[i] = ' ';
+            }
+        }
+        return bestMove;
+    }
+
+
+    int endState= 99;
+
+
+
+
+    ArrayList<Integer> arrListCaselleOccupate = new ArrayList<>();
+    int lastPositionBeforeDescending = 0;
+
+
+    int minimax(char[] fakeBoard, int turn, char player, int movesMadeToEnd) {
+            char[] boardBeforeDescending;
+
+            int movesMadeUntilNow = 0;
+            //arrListCaselleOccupate = new ArrayList<>();
+            int lastPositionBeforeDescending = 0;
+            int bestMove = 0;
+            char[] bestBoardConfig;
+
+            int bestScoreForLevel = 0;
+
+
+                movesMadeToEnd++;
+                if(hasWon('x', fakeBoard)){
+                    return 1000;
+                }else if(hasWon('o', fakeBoard)){
+                    return -1000;
+                }else if(checkIfBoardIsFull(fakeBoard)){
+                    return 0;
+                }
+
+                for(int i = 0; i < 9; i++){
+                        if(fakeBoard[i] == ' '){
+
+                            boardBeforeDescending = fakeBoard.clone();
+
+
+                            if(turn % 2 == 0){
+                                player = 'x';
+                            }else{
+                                player = 'o';
+                            }
+                            //printCurrentBoard(board);
+                            fakeBoard[i] = player;
+
+
+                            endState = minimax(fakeBoard, turn, player, movesMadeToEnd);
+
+
+                            if(endState == 0 || endState == -1000 || endState == 1000){
+
+                                    //return endState + movesMadeToEnd
+                                    if(turn % 2 == 0){
+                                        if((endState - movesMadeToEnd) > bestScoreForLevel){
+                                            bestScoreForLevel = endState - movesMadeToEnd;
+                                        }
+                                    }else{
+                                        if((endState + movesMadeToEnd) < bestScoreForLevel){
+                                            bestScoreForLevel = endState + movesMadeToEnd;
+                                        }
+                                    }
+                                    endState = 0;
+
+                                    fakeBoard[i] = ' ';
+
+                                    //return bestScore;
+                                }else{
+
+
+                                    fakeBoard = boardBeforeDescending.clone();
+
+                                    if(turn % 2 == 0){
+                                        if((endState - movesMadeToEnd) > bestScoreForLevel){
+                                            bestScoreForLevel = endState - movesMadeToEnd;
+                                        }
+                                    }else{
+                                        if((endState + movesMadeToEnd) < bestScoreForLevel){
+                                            bestScoreForLevel = endState + movesMadeToEnd;
+                                        }
+                                    }
+                                    endState = 0;
+
+
+                                    //printCurrentBoard(boardBeforeDescending);
+
+
+
+                                }
+                                turn++;
+
+                            }
+                        }
+
+
+                        return bestScoreForLevel;
+                    }
 }
 
 // Queste righe di codice sono state prese da: https://fowlie.github.io/2018/08/24/winning-algorithm-for-tic-tac-toe-using-a-3x3-magic-square/

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivity3(){
-        Intent intent = new Intent(this, insertName.class); //humanvsbot
+        Intent intent = new Intent(this, insertNameBotMode.class); //humanvsbot
         intent.putExtra("scelta","1");
         startActivity(intent);
     }

@@ -125,21 +125,27 @@ public class endGameOverlayActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "title");
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                values);
+
+        if (ContextCompat.checkSelfPermission(endGameOverlayActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(endGameOverlayActivity.this, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, STORAGE_PERMISSION_CODE);
+        }else{
+            Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    values);
 
 
-        OutputStream outstream;
-        try {
-            outstream = getContentResolver().openOutputStream(uri);
-            icon.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-            outstream.close();
-        } catch (Exception e) {
-            System.err.println(e.toString());
+            OutputStream outstream;
+            try {
+                outstream = getContentResolver().openOutputStream(uri);
+                icon.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+                outstream.close();
+            } catch (Exception e) {
+                System.err.println(e.toString());
+            }
+
+            share.putExtra(Intent.EXTRA_STREAM, uri);
+            startActivity(Intent.createChooser(share, "Share Image"));
         }
 
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(share, "Share Image"));
 
 
     }

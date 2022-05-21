@@ -64,6 +64,8 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
     private TextView textViewScorePlayer2;
     private TextView textViewTurnNumber;
     private TextView textViewTurnPlayer;
+    private TextView textViewNamePlayer1;
+    private TextView textViewNamePlayer2;
 
     String namePlayer1;
     String namePlayer2;
@@ -110,13 +112,17 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
         textViewTurnNumber = (TextView) findViewById(R.id.turnNumber);
         textViewTurnPlayer = (TextView) findViewById(R.id.turnPlayer);
 
+        textViewNamePlayer1 = (TextView) findViewById(R.id.namePlayer1);
+        textViewNamePlayer2 = (TextView) findViewById(R.id.namePlayer2);
 
+        textViewNamePlayer1.setText(namePlayer1);
+        textViewNamePlayer2.setText(namePlayer2);
 
 
         textViewScorePlayer1.setText(String.valueOf(scorePlayer1));
         textViewScorePlayer2.setText(String.valueOf(scorePlayer2));
 
-        textViewTurnNumber.setText(String.valueOf(turn));
+
         textViewTurnPlayer.setText(namePlayer1);
 
 
@@ -147,7 +153,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                         turn++;
 
 
-                        textViewTurnNumber.setText(String.valueOf(turn));
                         checkWinner();
                     }
                 }
@@ -187,7 +192,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
 
                         }else{
                             turn++;
-                            textViewTurnNumber.setText(String.valueOf(turn));
                         }
 
 
@@ -235,7 +239,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                     game_btns.get(bestMove).setText(String.valueOf(finalCharacterToPutIntoButton));
                     board[bestMove] = finalCharacterToPutIntoButton;
                     turn++;
-                    textViewTurnNumber.setText(String.valueOf(turn));
                     textViewTurnPlayer.setText(namePlayer1);
                     checkWinner();
 
@@ -399,7 +402,6 @@ public class humanVsHuman extends AppCompatActivity implements View.OnClickListe
                 ' ', ' ', ' '};
 
         turn = 1;
-        textViewTurnNumber.setText(String.valueOf(turn));
         textViewTurnPlayer.setText(namePlayer1);
 
         for(int i = 0; i < 9; i++){

@@ -23,7 +23,7 @@
     <Button
         android:id="@+id/button_screen"
         android:layout_width="97dp"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:layout_marginStart="10dp"
         android:backgroundTint="@color/purple_200"
 
@@ -39,7 +39,7 @@
     <Button
         android:id="@+id/share_button"
         android:layout_width="97dp"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="10dp"
 
         android:backgroundTint="@color/purple_200"

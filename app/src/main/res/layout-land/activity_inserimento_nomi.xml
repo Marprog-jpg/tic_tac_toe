@@ -15,6 +15,7 @@
         android:ems="10"
         android:hint="Player 1"
         android:inputType="textPersonName"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_inserimento"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -26,6 +27,7 @@
         android:ems="10"
         android:hint="Player 2"
         android:inputType="textPersonName"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/nome_player1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nome_player1" />
